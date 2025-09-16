@@ -7,11 +7,11 @@ variable (P Q R : Prop)
 -- Double negation
 ------------------------------------------------
 
-theorem doubleneg_intro :
+theorem doubleneg_intro :  -- Proved
   P → ¬ ¬ P  := by
   sorry
 
-theorem doubleneg_elim :
+theorem doubleneg_elim :  -- Sorry
   ¬ ¬ P → P  := by
   sorry
 
