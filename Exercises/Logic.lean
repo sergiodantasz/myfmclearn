@@ -15,7 +15,7 @@ theorem doubleneg_elim :  -- Sorry
   ¬ ¬ P → P  := by
   sorry
 
-theorem doubleneg_law :
+theorem doubleneg_law :  -- Sorry
   ¬ ¬ P ↔ P  := by
   sorry
 
