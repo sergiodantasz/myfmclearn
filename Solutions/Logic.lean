@@ -489,7 +489,6 @@ theorem demorgan_exists : ¬(∃ x, P x) → (∀ x, ¬P x) := by
     exists a
   apply h ep
 
-
 -- x13.4
 theorem demorgan_exists_converse : (∀ x, ¬P x) → ¬(∃ x, P x) := by
   intro h' h''
@@ -508,6 +507,28 @@ theorem demorgan_forall_converse : (∃ x, ¬P x) → ¬(∀ x, P x) := by
   obtain ⟨a, npa⟩ := h'
   have pa : P a := h'' a
   apply npa pa
+
+theorem demorgan_forall_law : ¬(∀ x, P x) ↔ (∃ x, ¬P x) := by
+  constructor
+  . intro h
+    sorry
+  . intro h' h''
+    obtain ⟨a, npa⟩ := h'
+    have pa : P a := h'' a
+    apply npa pa
+
+theorem demorgan_exists_law : ¬(∃ x, P x) ↔ (∀ x, ¬P x) := by
+  constructor
+  . intro h
+    intro a
+    intro pa
+    have ep : ∃ x, P x := by
+      exists a
+    apply h ep
+  . intro h' h''
+    obtain ⟨a, pa⟩ := h''
+    have npa : ¬P a := h' a
+    apply npa pa
 
 
 end predicate
