@@ -23,15 +23,18 @@ theorem doubleneg_intro : P → ¬¬P := by
 -- x1.2
 theorem doubleneg_elim : ¬¬P → P := by
   intro nnp
-  have np : ¬P := by
-    intro p
-    sorry
-  sorry
+  by_cases h : P
+  . assumption
+  . have c : False := nnp h
+    contradiction
 
 theorem doubleneg_law : ¬¬P ↔ P := by
   constructor
   . intro nnp
-    sorry
+    by_cases h : P
+    . assumption
+    . have c : False := nnp h
+      contradiction
   . intro p
     intro np
     have c : False := np p

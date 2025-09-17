@@ -11,11 +11,11 @@ theorem doubleneg_intro :  -- Proved
   P → ¬ ¬ P  := by
   sorry
 
-theorem doubleneg_elim :  -- Sorry
+theorem doubleneg_elim :  -- Proved
   ¬ ¬ P → P  := by
   sorry
 
-theorem doubleneg_law :  -- Sorry
+theorem doubleneg_law :  -- Proved
   ¬ ¬ P ↔ P  := by
   sorry
 
