@@ -647,7 +647,13 @@ theorem forall_conj_as_conj_forall : (∀ x, P x ∧ Q x) → (∀ x, P x) ∧ (
 
 -- x15.6
 theorem forall_conj_as_conj_forall_converse : (∀ x, P x) ∧ (∀ x, Q x) → (∀ x, P x ∧ Q x) := by
-  sorry
+  intro h a
+  rcases h with ⟨fpx, fqx⟩
+  constructor
+  . have pa : P a := fpx a
+    assumption
+  . have pq : Q a := fqx a
+    assumption
 
 -- x15.8
 theorem forall_disj_as_disj_forall_converse : (∀ x, P x) ∨ (∀ x, Q x) → (∀ x, P x ∨ Q x) := by
