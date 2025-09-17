@@ -179,6 +179,16 @@ theorem disj_as_negconj : P ∨ Q → ¬(¬P ∧ ¬Q) := by
   . have c : False := nq q
     contradiction
 
+-- x7.3
+theorem conj_as_negdisj : P ∧ Q → ¬(¬P ∨ ¬Q) := by
+  intro h' h''
+  rcases h' with ⟨p, q⟩
+  rcases h'' with np | nq
+  . have c : False := np p
+    contradiction
+  . have c : False := nq q
+    contradiction
+
 
 end propositional
 

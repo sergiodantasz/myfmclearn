@@ -98,7 +98,7 @@ theorem disj_as_negconj :  -- Proved
   P ∨ Q → ¬ (¬ P ∧ ¬ Q)  := by
   sorry
 
-theorem conj_as_negdisj :
+theorem conj_as_negdisj :  -- Proved
   P ∧ Q → ¬ (¬ P ∨ ¬ Q)  := by
   sorry
 
