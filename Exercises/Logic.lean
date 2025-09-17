@@ -240,7 +240,7 @@ theorem demorgan_exists :  -- Proved
   ¬ (∃ x, P x) → (∀ x, ¬ P x)  := by
   sorry
 
-theorem demorgan_exists_converse :
+theorem demorgan_exists_converse :  -- Proved
   (∀ x, ¬ P x) → ¬ (∃ x, P x)  := by
   sorry
 

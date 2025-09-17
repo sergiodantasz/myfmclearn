@@ -490,6 +490,14 @@ theorem demorgan_exists : ¬(∃ x, P x) → (∀ x, ¬P x) := by
   apply h ep
 
 
+-- x13.4
+theorem demorgan_exists_converse : (∀ x, ¬P x) → ¬(∃ x, P x) := by
+  intro h' h''
+  obtain ⟨a, pa⟩ := h''
+  have npa : ¬P a := h' a
+  apply npa pa
+
+
 end predicate
 
 
