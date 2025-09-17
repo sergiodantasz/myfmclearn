@@ -302,7 +302,7 @@ theorem exists_disj_as_disj_exists :  -- Proved
   (∃ x, P x ∨ Q x) → (∃ x, P x) ∨ (∃ x, Q x)  := by
   sorry
 
-theorem exists_disj_as_disj_exists_converse :
+theorem exists_disj_as_disj_exists_converse :  -- Proved
   (∃ x, P x) ∨ (∃ x, Q x) → (∃ x, P x ∨ Q x)  := by
   sorry
 

@@ -621,7 +621,16 @@ theorem exists_disj_as_disj_exists : (∃ x, P x ∨ Q x) → (∃ x, P x) ∨ (
 
 -- x15.4
 theorem exists_disj_as_disj_exists_converse : (∃ x, P x) ∨ (∃ x, Q x) → (∃ x, P x ∨ Q x) := by
-  sorry
+  intro h
+  rcases h with epx | eqx
+  . obtain ⟨a, pa⟩ := epx
+    exists a
+    left
+    assumption
+  . obtain ⟨a, qa⟩ := eqx
+    exists a
+    right
+    assumption
 
 -- x15.5
 theorem forall_conj_as_conj_forall : (∀ x, P x ∧ Q x) → (∀ x, P x) ∧ (∀ x, Q x) := by
