@@ -50,7 +50,7 @@ theorem disj_as_impl :  -- Proved
 -- Contrapositive
 ------------------------------------------------
 
-theorem impl_as_contrapositive :
+theorem impl_as_contrapositive :  -- Proved
   (P → Q) → (¬ Q → ¬ P)  := by
   sorry
 

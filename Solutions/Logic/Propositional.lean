@@ -56,6 +56,14 @@ theorem conj_comm : (P ∧ Q) → (Q ∧ P) := by
 -- Interdefinability of →,∨
 ------------------------------------------------
 
+-- x3.2
+theorem impl_as_disj_converse : (¬P ∨ Q) → (P → Q) := by
+  intro h p
+  rcases h with np | q
+  . have c : False := np p
+    contradiction
+  . exact q
+
 -- x3.3
 theorem disj_as_impl : (P ∨ Q) → (¬P → Q) := by
   intro h np
@@ -64,10 +72,14 @@ theorem disj_as_impl : (P ∨ Q) → (¬P → Q) := by
     contradiction
   . exact q
 
--- x3.2
-theorem impl_as_disj_converse : (¬P ∨ Q) → (P → Q) := by
-  intro h p
-  rcases h with np | q
-  . have c : False := np p
-    contradiction
-  . exact q
+
+------------------------------------------------
+-- Contrapositive
+------------------------------------------------
+
+-- x4.1
+theorem impl_as_contrapositive : (P → Q) → (¬Q → ¬P) := by
+  intro pq nq p
+  have q : Q := pq p
+  have c : False := nq q
+  contradiction
