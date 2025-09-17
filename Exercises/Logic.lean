@@ -273,19 +273,19 @@ theorem forall_as_neg_exists :  -- Proved
   (∀ x, P x) → ¬ (∃ x, ¬ P x)  := by
   sorry
 
-theorem forall_as_neg_exists_converse :
+theorem forall_as_neg_exists_converse :  -- Sorry
   ¬ (∃ x, ¬ P x) → (∀ x, P x)  := by
   sorry
 
-theorem exists_as_neg_forall_converse :
+theorem exists_as_neg_forall_converse :  -- Sorry
   ¬ (∀ x, ¬ P x) → (∃ x, P x)  := by
   sorry
 
-theorem forall_as_neg_exists_law :
+theorem forall_as_neg_exists_law :  -- Sorry
   (∀ x, P x) ↔ ¬ (∃ x, ¬ P x)  := by
   sorry
 
-theorem exists_as_neg_forall_law :
+theorem exists_as_neg_forall_law :  -- Sorry
   (∃ x, P x) ↔ ¬ (∀ x, ¬ P x)  := by
   sorry
 

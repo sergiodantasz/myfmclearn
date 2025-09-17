@@ -552,17 +552,48 @@ theorem forall_as_neg_exists : (∀ x, P x) → ¬(∃ x, ¬P x) := by
 
 -- x14.4
 theorem forall_as_neg_exists_converse : ¬(∃ x, ¬P x) → (∀ x, P x) := by
+  intro h'
+  intro a
+  have h'' : ∃ x, ¬P x := by
+    exists a
+    intro pa
+    sorry
   sorry
 
 -- x14.2
 theorem exists_as_neg_forall_converse : ¬(∀ x, ¬P x) → (∃ x, P x) := by
+  intro h
+  have h'' : ∀ x, ¬P x := by
+    intro a pa
+    sorry
   sorry
 
 theorem forall_as_neg_exists_law : (∀ x, P x) ↔ ¬(∃ x, ¬P x) := by
-  sorry
+  constructor
+  . intro h' h''
+    obtain ⟨a, npa⟩ := h''
+    have pa : P a := h' a
+    apply npa pa
+  . intro h'
+    intro a
+    have h'' : ∃ x, ¬P x := by
+      exists a
+      intro pa
+      sorry
+    sorry
 
 theorem exists_as_neg_forall_law : (∃ x, P x) ↔ ¬(∀ x, ¬P x) := by
-  sorry
+  constructor
+  . intro h' h''
+    obtain ⟨a, pa⟩ := h'
+    have npa : ¬P a := h'' a
+    have c : False := npa pa
+    assumption
+  . intro h
+    have h'' : ∀ x, ¬P x := by
+      intro a pa
+      sorry
+    sorry
 
 
 end predicate
