@@ -355,10 +355,13 @@ theorem distr_disj_conj_converse : (P ∨ Q) ∧ (P ∨ R) → P ∨ (Q ∧ R) :
   rcases pq with p | q
   . left
     assumption
-  . right
-    constructor
-    . assumption
-    . sorry
+  . rcases pr with p | r
+    . left
+      assumption
+    . right
+      constructor
+      . assumption
+      . assumption
 
 
 ------------------------------------------------
