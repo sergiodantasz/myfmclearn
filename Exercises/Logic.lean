@@ -111,15 +111,15 @@ theorem demorgan_disj :  -- Proved
   ¬ (P ∨ Q) → (¬ P ∧ ¬ Q)  := by
   sorry
 
-theorem demorgan_disj_converse :
+theorem demorgan_disj_converse :  -- Proved
   (¬ P ∧ ¬ Q) → ¬ (P ∨ Q)  := by
   sorry
 
-theorem demorgan_conj :
+theorem demorgan_conj :  -- Proved
   ¬ (P ∧ Q) → (¬ Q ∨ ¬ P)  := by
   sorry
 
-theorem demorgan_conj_converse :
+theorem demorgan_conj_converse :  -- Proved
   (¬ Q ∨ ¬ P) → ¬ (P ∧ Q)  := by
   sorry
 
