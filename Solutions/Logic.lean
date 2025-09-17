@@ -1,5 +1,11 @@
 set_option pp.parens true
 
+
+------------------------------------------------
+
+
+section propositional
+
 variable (P Q R : Prop)
 
 
@@ -126,3 +132,9 @@ theorem lem_irrefutable : ¬¬(P ∨ ¬P)  := by
     contradiction
   have c : False := h o_lem
   contradiction
+
+
+end propositional
+
+
+------------------------------------------------
