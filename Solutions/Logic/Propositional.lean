@@ -56,7 +56,7 @@ theorem conj_comm : (P ∧ Q) → (Q ∧ P) := by
 -- Interdefinability of →,∨
 ------------------------------------------------
 
--- x3.1
+-- x3.3
 theorem disj_as_impl : (P ∨ Q) → (¬P → Q) := by
   intro h np
   rcases h with p | q
