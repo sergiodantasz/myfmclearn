@@ -134,6 +134,22 @@ theorem lem_irrefutable : ¬¬(P ∨ ¬P)  := by
   contradiction
 
 
+------------------------------------------------
+-- Peirce's law
+------------------------------------------------
+
+-- x6.2
+theorem peirce_law_weak : ((P → Q) → P) → ¬¬P := by
+  intro h np
+  have pq : P → Q := by
+    intro p
+    have c : False := np p
+    contradiction
+  have p : P := h pq
+  have c : False := np p
+  contradiction
+
+
 end propositional
 
 

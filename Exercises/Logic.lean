@@ -76,7 +76,7 @@ theorem lem_irrefutable :  -- Proved
 -- Peirce's law
 ------------------------------------------------
 
-theorem peirce_law_weak :
+theorem peirce_law_weak :  -- Proved
   ((P → Q) → P) → ¬ ¬ P  := by
   sorry
 
