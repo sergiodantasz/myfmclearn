@@ -17,7 +17,7 @@ theorem doubleneg_intro : P → ¬¬P := by
 -- x1.2
 theorem doubleneg_elim : ¬¬P → P := by
   intro nnp
-  have np : ¬ P := by
+  have np : ¬P := by
     intro p
     sorry
   sorry
@@ -107,3 +107,22 @@ theorem contrapositive_law : (P → Q) ↔ (¬Q → ¬P) := by
     . have np : ¬P := qp h
       have c : False := np p
       contradiction
+
+
+------------------------------------------------
+-- Irrefutability of LEM[P]
+------------------------------------------------
+
+-- x5.1
+theorem lem_irrefutable : ¬¬(P ∨ ¬P)  := by
+  intro h
+  have o_lem : P ∨ ¬P := by
+    right
+    intro p
+    have i_lem : P ∨ ¬P := by
+      left
+      assumption
+    have c : False := h i_lem
+    contradiction
+  have c : False := h o_lem
+  contradiction

@@ -67,7 +67,7 @@ theorem contrapositive_law :  -- Proved
 -- Irrefutability of LEM[P]
 ------------------------------------------------
 
-theorem lem_irrefutable :
+theorem lem_irrefutable :  -- Proved
   ¬ ¬ (P ∨ ¬ P)  := by
   sorry
 
