@@ -248,6 +248,53 @@ theorem demorgan_conj_converse : (¬Q ∨ ¬P) → ¬(P ∧ Q) := by
   . have c : False := np p
     contradiction
 
+theorem demorgan_conj_law : ¬(P ∧ Q) ↔ (¬Q ∨ ¬P) := by
+  constructor
+  . intro h
+    by_cases hp : P
+    . by_cases hq : Q
+      . have pq : P ∧ Q := by
+          constructor
+          . assumption
+          . assumption
+        have c : False := h pq
+        contradiction
+      . left
+        assumption
+    . right
+      assumption
+  . intro h' h''
+    rcases h'' with ⟨p, q⟩
+    rcases h' with nq | np
+    . have c : False := nq q
+      contradiction
+    . have c : False := np p
+      contradiction
+
+theorem demorgan_disj_law : ¬(P ∨ Q) ↔ (¬P ∧ ¬Q) := by
+  constructor
+  . intro h
+    constructor
+    . intro p
+      have pq : P ∨ Q := by
+        left
+        exact p
+      have c : False := h pq
+      contradiction
+    . intro q
+      have pq : P ∨ Q := by
+        right
+        exact q
+      have c : False := h pq
+      contradiction
+  . intro h' h''
+    rcases h' with ⟨np, nq⟩
+    rcases h'' with p | q
+    . have c : False := np p
+      contradiction
+    . have c : False := nq q
+      contradiction
+
 
 end propositional
 
