@@ -296,6 +296,68 @@ theorem demorgan_disj_law : ¬(P ∨ Q) ↔ (¬P ∧ ¬Q) := by
       contradiction
 
 
+------------------------------------------------
+-- Distributivity laws between ∨,∧
+------------------------------------------------
+
+-- x9.1
+theorem distr_conj_disj : P ∧ (Q ∨ R) → (P ∧ Q) ∨ (P ∧ R) := by
+  intro h
+  rcases h with ⟨p, qr⟩
+  rcases qr with q | r
+  . left
+    constructor
+    . assumption
+    . assumption
+  . right
+    constructor
+    . assumption
+    . assumption
+
+-- x9.2
+theorem distr_conj_disj_converse : (P ∧ Q) ∨ (P ∧ R) → P ∧ (Q ∨ R) := by
+  intro h
+  rcases h with pq | pr
+  . rcases pq with ⟨p, q⟩
+    constructor
+    . assumption
+    . left
+      assumption
+  . rcases pr with ⟨p, r⟩
+    constructor
+    . assumption
+    . right
+      assumption
+
+-- x9.3
+theorem distr_disj_conj : P ∨ (Q ∧ R) → (P ∨ Q) ∧ (P ∨ R) := by
+  intro h
+  rcases h with p | qr
+  . constructor
+    . left
+      assumption
+    . left
+      assumption
+  . rcases qr with ⟨q, r⟩
+    constructor
+    . right
+      assumption
+    . right
+      assumption
+
+-- x9.4
+theorem distr_disj_conj_converse : (P ∨ Q) ∧ (P ∨ R) → P ∨ (Q ∧ R) := by
+  intro h
+  rcases h with ⟨pq, pr⟩
+  rcases pq with p | q
+  . left
+    assumption
+  . right
+    constructor
+    . assumption
+    . sorry
+
+
 end propositional
 
 

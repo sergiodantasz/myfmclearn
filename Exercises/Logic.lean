@@ -136,19 +136,19 @@ theorem demorgan_disj_law :  -- Proved
 -- Distributivity laws between ∨,∧
 ------------------------------------------------
 
-theorem distr_conj_disj :
+theorem distr_conj_disj :  -- Proved
   P ∧ (Q ∨ R) → (P ∧ Q) ∨ (P ∧ R)  := by
   sorry
 
-theorem distr_conj_disj_converse :
+theorem distr_conj_disj_converse :  -- Proved
   (P ∧ Q) ∨ (P ∧ R) → P ∧ (Q ∨ R)  := by
   sorry
 
-theorem distr_disj_conj :
+theorem distr_disj_conj :  -- Proved
   P ∨ (Q ∧ R) → (P ∨ Q) ∧ (P ∨ R)  := by
   sorry
 
-theorem distr_disj_conj_converse :
+theorem distr_disj_conj_converse :  -- Proved
   (P ∨ Q) ∧ (P ∨ R) → P ∨ (Q ∧ R)  := by
   sorry
 
