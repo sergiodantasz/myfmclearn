@@ -165,6 +165,21 @@ theorem impl_linear : (P → Q) ∨ (Q → P) := by
     contradiction
 
 
+------------------------------------------------
+-- Interdefinability of ∨,∧
+------------------------------------------------
+
+-- x7.1
+theorem disj_as_negconj : P ∨ Q → ¬(¬P ∧ ¬Q) := by
+  intro h' h''
+  rcases h'' with ⟨np, nq⟩
+  rcases h' with p | q
+  . have c : False := np p
+    contradiction
+  . have c : False := nq q
+    contradiction
+
+
 end propositional
 
 

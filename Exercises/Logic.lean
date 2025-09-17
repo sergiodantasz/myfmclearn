@@ -85,7 +85,7 @@ theorem peirce_law_weak :  -- Proved
 -- Linearity of →
 ------------------------------------------------
 
-theorem impl_linear :
+theorem impl_linear :  -- Proved
   (P → Q) ∨ (Q → P)  := by
   sorry
 
@@ -94,7 +94,7 @@ theorem impl_linear :
 -- Interdefinability of ∨,∧
 ------------------------------------------------
 
-theorem disj_as_negconj :
+theorem disj_as_negconj :  -- Proved
   P ∨ Q → ¬ (¬ P ∧ ¬ Q)  := by
   sorry
 
