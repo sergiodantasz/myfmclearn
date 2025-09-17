@@ -314,7 +314,7 @@ theorem forall_conj_as_conj_forall_converse :  -- Proved
   (∀ x, P x) ∧ (∀ x, Q x) → (∀ x, P x ∧ Q x)  := by
   sorry
 
-theorem forall_disj_as_disj_forall_converse :
+theorem forall_disj_as_disj_forall_converse :  -- Proved
   (∀ x, P x) ∨ (∀ x, Q x) → (∀ x, P x ∨ Q x)  := by
   sorry
 
