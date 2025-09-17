@@ -24,7 +24,7 @@ theorem doubleneg_law :  -- Sorry
 -- Commutativity of ∨,∧
 ------------------------------------------------
 
-theorem disj_comm :
+theorem disj_comm :  -- Proved
   (P ∨ Q) → (Q ∨ P)  := by
   sorry
 

@@ -26,3 +26,16 @@ theorem doubleneg_law : ¬¬P ↔ P := by
     intro np
     have c : False := np p
     exact c
+
+
+------------------------------------------------
+-- Commutativity of ∨,∧
+------------------------------------------------
+
+theorem disj_comm : (P ∨ Q) → (Q ∨ P)  := by
+  intro pvq
+  rcases pvq with p | q
+  . right
+    exact p
+  . left
+    exact q
