@@ -83,3 +83,12 @@ theorem impl_as_contrapositive : (P → Q) → (¬Q → ¬P) := by
   have q : Q := pq p
   have c : False := nq q
   contradiction
+
+-- x4.2
+theorem impl_as_contrapositive_converse : (¬Q → ¬P) → (P → Q) := by
+  intro qp p
+  by_cases h : Q
+  . assumption
+  . have np : ¬P := qp h
+    have c : False := np p
+    contradiction
