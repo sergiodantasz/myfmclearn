@@ -298,7 +298,7 @@ theorem exists_conj_as_conj_exists :  -- Proved
   (∃ x, P x ∧ Q x) → (∃ x, P x) ∧ (∃ x, Q x)  := by
   sorry
 
-theorem exists_disj_as_disj_exists :
+theorem exists_disj_as_disj_exists :  -- Proved
   (∃ x, P x ∨ Q x) → (∃ x, P x) ∨ (∃ x, Q x)  := by
   sorry
 
