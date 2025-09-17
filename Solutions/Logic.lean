@@ -445,6 +445,19 @@ theorem conj_idem : (P ∧ P) ↔ P := by
     . assumption
 
 
+------------------------------------------------
+-- Bottom, Top
+------------------------------------------------
+
+theorem false_bottom : False → P := by
+  intro
+  contradiction
+
+theorem true_top : P → True  := by
+  intro p
+  trivial
+
+
 end propositional
 
 

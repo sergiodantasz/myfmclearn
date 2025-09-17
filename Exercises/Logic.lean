@@ -213,11 +213,11 @@ theorem conj_idem :  -- Proved
 -- Bottom, Top
 ------------------------------------------------
 
-theorem false_bottom :
+theorem false_bottom :  -- Proved
   False → P := by
   sorry
 
-theorem true_top :
+theorem true_top :  -- Proved
   P → True  := by
   sorry
 
