@@ -150,6 +150,21 @@ theorem peirce_law_weak : ((P → Q) → P) → ¬¬P := by
   contradiction
 
 
+------------------------------------------------
+-- Linearity of →
+------------------------------------------------
+
+theorem impl_linear : (P → Q) ∨ (Q → P) := by
+  by_cases h : P
+  . right
+    intro q
+    assumption
+  . left
+    intro p
+    have c : False := h p
+    contradiction
+
+
 end propositional
 
 
