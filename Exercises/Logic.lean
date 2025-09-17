@@ -236,7 +236,7 @@ variable (P Q : U → Prop)
 -- De Morgan laws for ∃,∀
 ------------------------------------------------
 
-theorem demorgan_exists :
+theorem demorgan_exists :  -- Proved
   ¬ (∃ x, P x) → (∀ x, ¬ P x)  := by
   sorry
 

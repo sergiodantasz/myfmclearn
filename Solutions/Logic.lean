@@ -468,3 +468,29 @@ end propositional
 
 
 ------------------------------------------------
+
+
+section predicate
+
+variable (U : Type)
+variable (P Q : U → Prop)
+
+
+------------------------------------------------
+-- De Morgan laws for ∃,∀
+------------------------------------------------
+
+-- x13.3
+theorem demorgan_exists : ¬(∃ x, P x) → (∀ x, ¬P x) := by
+  intro h
+  intro a
+  intro pa
+  have ep : ∃ x, P x := by
+    exists a
+  apply h ep
+
+
+end predicate
+
+
+------------------------------------------------
