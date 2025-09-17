@@ -294,7 +294,7 @@ theorem exists_as_neg_forall_law :  -- Sorry
 --  Distributivity between quantifiers
 ------------------------------------------------
 
-theorem exists_conj_as_conj_exists :
+theorem exists_conj_as_conj_exists :  -- Proved
   (∃ x, P x ∧ Q x) → (∃ x, P x) ∧ (∃ x, Q x)  := by
   sorry
 

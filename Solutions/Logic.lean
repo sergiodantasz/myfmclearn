@@ -596,6 +596,40 @@ theorem exists_as_neg_forall_law : (∃ x, P x) ↔ ¬(∀ x, ¬P x) := by
     sorry
 
 
+------------------------------------------------
+--  Distributivity between quantifiers
+------------------------------------------------
+
+-- x15.1
+theorem exists_conj_as_conj_exists : (∃ x, P x ∧ Q x) → (∃ x, P x) ∧ (∃ x, Q x) := by
+  intro h
+  obtain ⟨a, peqa⟩ := h
+  obtain ⟨pa, qa⟩ := peqa
+  constructor
+  . exists a
+  . exists a
+
+-- x15.3
+theorem exists_disj_as_disj_exists : (∃ x, P x ∨ Q x) → (∃ x, P x) ∨ (∃ x, Q x) := by
+  sorry
+
+-- x15.4
+theorem exists_disj_as_disj_exists_converse : (∃ x, P x) ∨ (∃ x, Q x) → (∃ x, P x ∨ Q x) := by
+  sorry
+
+-- x15.5
+theorem forall_conj_as_conj_forall : (∀ x, P x ∧ Q x) → (∀ x, P x) ∧ (∀ x, Q x) := by
+  sorry
+
+-- x15.6
+theorem forall_conj_as_conj_forall_converse : (∀ x, P x) ∧ (∀ x, Q x) → (∀ x, P x ∧ Q x) := by
+  sorry
+
+-- x15.8
+theorem forall_disj_as_disj_forall_converse : (∀ x, P x) ∨ (∀ x, Q x) → (∀ x, P x ∨ Q x) := by
+  sorry
+
+
 end predicate
 
 
