@@ -157,11 +157,11 @@ theorem distr_disj_conj_converse :  -- Proved
 -- Currying
 ------------------------------------------------
 
-theorem curry_prop :
+theorem curry_prop :  -- Proved
   ((P ∧ Q) → R) → (P → (Q → R))  := by
   sorry
 
-theorem uncurry_prop :
+theorem uncurry_prop :  -- Proved
   (P → (Q → R)) → ((P ∧ Q) → R)  := by
   sorry
 

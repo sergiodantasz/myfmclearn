@@ -358,6 +358,29 @@ theorem distr_disj_conj_converse : (P ∨ Q) ∧ (P ∨ R) → P ∨ (Q ∧ R) :
     . sorry
 
 
+------------------------------------------------
+-- Currying
+------------------------------------------------
+
+-- x10.1
+theorem curry_prop : ((P ∧ Q) → R) → (P → (Q → R)) := by
+  intro pqr p q
+  have pq : P ∧ Q := by
+    constructor
+    . assumption
+    . assumption
+  have r : R := pqr pq
+  exact r
+
+-- x10.2
+theorem uncurry_prop : (P → (Q → R)) → ((P ∧ Q) → R) := by
+  intro pqr pq
+  rcases pq with ⟨p, q⟩
+  have qr : Q → R := pqr p
+  apply qr
+  assumption
+
+
 end propositional
 
 
