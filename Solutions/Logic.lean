@@ -420,6 +420,31 @@ theorem weaken_conj_left : (P ∧ Q) → Q := by
   assumption
 
 
+------------------------------------------------
+-- Idempotence of ∨,∧
+------------------------------------------------
+
+theorem disj_idem : (P ∨ P) ↔ P := by
+  constructor
+  . intro pp
+    rcases pp with p | p
+    . assumption
+    . assumption
+  . intro p
+    left
+    assumption
+
+theorem conj_idem : (P ∧ P) ↔ P := by
+  constructor
+  . intro pp
+    rcases pp with ⟨p, p⟩
+    assumption
+  . intro p
+    constructor
+    . assumption
+    . assumption
+
+
 end propositional
 
 

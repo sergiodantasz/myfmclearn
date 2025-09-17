@@ -200,11 +200,11 @@ theorem weaken_conj_left :  -- Proved
 -- Idempotence of ∨,∧
 ------------------------------------------------
 
-theorem disj_idem :
+theorem disj_idem :  -- Proved
   (P ∨ P) ↔ P  := by
   sorry
 
-theorem conj_idem :
+theorem conj_idem :  -- Proved
   (P ∧ P) ↔ P := by
   sorry
 
