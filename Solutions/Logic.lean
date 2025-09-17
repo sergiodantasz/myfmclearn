@@ -531,6 +531,40 @@ theorem demorgan_exists_law : ¬(∃ x, P x) ↔ (∀ x, ¬P x) := by
     apply npa pa
 
 
+------------------------------------------------
+-- Interdefinability of ∃,∀
+------------------------------------------------
+
+-- x14.1
+theorem exists_as_neg_forall : (∃ x, P x) → ¬(∀ x, ¬P x) := by
+  intro h' h''
+  obtain ⟨a, pa⟩ := h'
+  have npa : ¬P a := h'' a
+  have c : False := npa pa
+  assumption
+
+-- x14.3
+theorem forall_as_neg_exists : (∀ x, P x) → ¬(∃ x, ¬P x) := by
+  intro h' h''
+  obtain ⟨a, npa⟩ := h''
+  have pa : P a := h' a
+  apply npa pa
+
+-- x14.4
+theorem forall_as_neg_exists_converse : ¬(∃ x, ¬P x) → (∀ x, P x) := by
+  sorry
+
+-- x14.2
+theorem exists_as_neg_forall_converse : ¬(∀ x, ¬P x) → (∃ x, P x) := by
+  sorry
+
+theorem forall_as_neg_exists_law : (∀ x, P x) ↔ ¬(∃ x, ¬P x) := by
+  sorry
+
+theorem exists_as_neg_forall_law : (∃ x, P x) ↔ ¬(∀ x, ¬P x) := by
+  sorry
+
+
 end predicate
 
 

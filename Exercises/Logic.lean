@@ -265,11 +265,11 @@ theorem demorgan_exists_law :  -- Proved
 -- Interdefinability of ∃,∀
 ------------------------------------------------
 
-theorem exists_as_neg_forall :
+theorem exists_as_neg_forall :  -- Proved
   (∃ x, P x) → ¬ (∀ x, ¬ P x)  := by
   sorry
 
-theorem forall_as_neg_exists :
+theorem forall_as_neg_exists :  -- Proved
   (∀ x, P x) → ¬ (∃ x, ¬ P x)  := by
   sorry
 
