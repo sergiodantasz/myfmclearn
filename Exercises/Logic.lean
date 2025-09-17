@@ -244,11 +244,11 @@ theorem demorgan_exists_converse :  -- Proved
   (∀ x, ¬ P x) → ¬ (∃ x, P x)  := by
   sorry
 
-theorem demorgan_forall :
+theorem demorgan_forall :  -- Sorry
   ¬ (∀ x, P x) → (∃ x, ¬ P x)  := by
   sorry
 
-theorem demorgan_forall_converse :
+theorem demorgan_forall_converse :  -- Proved
   (∃ x, ¬ P x) → ¬ (∀ x, P x)  := by
   sorry
 
