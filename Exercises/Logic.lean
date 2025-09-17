@@ -28,7 +28,7 @@ theorem disj_comm :  -- Proved
   (P ∨ Q) → (Q ∨ P)  := by
   sorry
 
-theorem conj_comm :
+theorem conj_comm :  -- Proved
   (P ∧ Q) → (Q ∧ P)  := by
   sorry
 

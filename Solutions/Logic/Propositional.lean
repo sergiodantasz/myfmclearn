@@ -39,3 +39,10 @@ theorem disj_comm : (P ∨ Q) → (Q ∨ P)  := by
     exact p
   . left
     exact q
+
+theorem conj_comm : (P ∧ Q) → (Q ∧ P)  := by
+  intro peq
+  rcases peq with ⟨p, q⟩
+  constructor
+  . exact q
+  . exact p
