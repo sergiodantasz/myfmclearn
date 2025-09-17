@@ -58,7 +58,7 @@ theorem impl_as_contrapositive_converse :  -- Proved
   (¬ Q → ¬ P) → (P → Q)  := by
   sorry
 
-theorem contrapositive_law :
+theorem contrapositive_law :  -- Proved
   (P → Q) ↔ (¬ Q → ¬ P)  := by
   sorry
 

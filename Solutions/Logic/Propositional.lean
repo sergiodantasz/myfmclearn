@@ -1,3 +1,5 @@
+set_option pp.parens true
+
 variable (P Q R : Prop)
 
 
@@ -92,3 +94,16 @@ theorem impl_as_contrapositive_converse : (¬Q → ¬P) → (P → Q) := by
   . have np : ¬P := qp h
     have c : False := np p
     contradiction
+
+theorem contrapositive_law : (P → Q) ↔ (¬Q → ¬P) := by
+  constructor
+  . intro pq nq p
+    have q : Q := pq p
+    have c : False := nq q
+    contradiction
+  . intro qp p
+    by_cases h : Q
+    . assumption
+    . have np : ¬P := qp h
+      have c : False := np p
+      contradiction
