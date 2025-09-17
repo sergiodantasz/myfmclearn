@@ -381,6 +381,45 @@ theorem uncurry_prop : (P → (Q → R)) → ((P ∧ Q) → R) := by
   assumption
 
 
+------------------------------------------------
+-- Reflexivity of →
+------------------------------------------------
+
+-- x11.1
+theorem impl_refl : P → P := by
+  intro p
+  exact p
+
+
+------------------------------------------------
+-- Weakening and contraction
+------------------------------------------------
+
+-- x12.1
+theorem weaken_disj_right : P → (P ∨ Q) := by
+  intro p
+  left
+  assumption
+
+-- x12.2
+theorem weaken_disj_left : Q → (P ∨ Q) := by
+  intro q
+  right
+  assumption
+
+-- x12.3
+theorem weaken_conj_right : (P ∧ Q) → P := by
+  intro pq
+  rcases pq with ⟨p, q⟩
+  assumption
+
+-- x12.4
+theorem weaken_conj_left : (P ∧ Q) → Q := by
+  intro pq
+  rcases pq with ⟨p, q⟩
+  assumption
+
+
 end propositional
 
 

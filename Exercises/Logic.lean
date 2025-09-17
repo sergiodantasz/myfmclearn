@@ -170,7 +170,7 @@ theorem uncurry_prop :  -- Proved
 -- Reflexivity of →
 ------------------------------------------------
 
-theorem impl_refl :
+theorem impl_refl :  -- Proved
   P → P  := by
   sorry
 
@@ -179,19 +179,19 @@ theorem impl_refl :
 -- Weakening and contraction
 ------------------------------------------------
 
-theorem weaken_disj_right :
+theorem weaken_disj_right :  -- Proved
   P → (P ∨ Q)  := by
   sorry
 
-theorem weaken_disj_left :
+theorem weaken_disj_left :  -- Proved
   Q → (P ∨ Q)  := by
   sorry
 
-theorem weaken_conj_right :
+theorem weaken_conj_right :  -- Proved
   (P ∧ Q) → P  := by
   sorry
 
-theorem weaken_conj_left :
+theorem weaken_conj_left :  -- Proved
   (P ∧ Q) → Q  := by
   sorry
 
