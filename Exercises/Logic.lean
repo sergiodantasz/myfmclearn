@@ -107,7 +107,7 @@ theorem conj_as_negdisj :  -- Proved
 -- De Morgan laws for ∨,∧
 ------------------------------------------------
 
-theorem demorgan_disj :
+theorem demorgan_disj :  -- Proved
   ¬ (P ∨ Q) → (¬ P ∧ ¬ Q)  := by
   sorry
 

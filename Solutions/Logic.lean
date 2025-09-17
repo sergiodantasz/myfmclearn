@@ -190,6 +190,28 @@ theorem conj_as_negdisj : P ∧ Q → ¬(¬P ∨ ¬Q) := by
     contradiction
 
 
+------------------------------------------------
+-- De Morgan laws for ∨,∧
+------------------------------------------------
+
+-- x8.1
+theorem demorgan_disj : ¬(P ∨ Q) → (¬P ∧ ¬Q) := by
+  intro h
+  constructor
+  . intro p
+    have pq : P ∨ Q := by
+      left
+      exact p
+    have c : False := h pq
+    contradiction
+  . intro q
+    have pq : P ∨ Q := by
+      right
+      exact q
+    have c : False := h pq
+    contradiction
+
+
 end propositional
 
 
