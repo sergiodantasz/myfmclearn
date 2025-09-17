@@ -37,11 +37,11 @@ theorem conj_comm :  -- Proved
 -- Interdefinability of →,∨
 ------------------------------------------------
 
-theorem impl_as_disj_converse :
+theorem impl_as_disj_converse :  -- Proved
   (¬ P ∨ Q) → (P → Q)  := by
   sorry
 
-theorem disj_as_impl :
+theorem disj_as_impl :  -- Proved
   (P ∨ Q) → (¬ P → Q)  := by
   sorry
 
