@@ -1,4 +1,5 @@
 set_option pp.parens true
+set_option autoImplicit false
 
 
 ------------------------------------------------
