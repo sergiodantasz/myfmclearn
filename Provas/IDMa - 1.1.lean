@@ -29,4 +29,20 @@ theorem conj_as_neg_disj (P Q : Prop) : P ∧ Q → ¬(¬P ∨ ¬Q) := by
   . apply nq
     assumption
 
+-- B2
+theorem curry_uncurry (P Q R : Prop) : (P ∧ Q → R) ↔ (P → (Q → R)) := by
+  constructor
+  . intro h p q
+    have pq : P ∧ Q := by
+      constructor
+      . assumption
+      . assumption
+    apply h
+    assumption
+  . intro h pq
+    rcases pq with ⟨p, q⟩
+    have qr : Q → R := h p
+    have r : R := qr q
+    assumption
+
 end B
