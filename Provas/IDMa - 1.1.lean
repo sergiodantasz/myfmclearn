@@ -1,4 +1,5 @@
 set_option pp.parens true
+set_option autoImplicit false
 
 section A
 
@@ -15,3 +16,17 @@ n _ 42 ⇐⇒ _.                              : (Int ⨯ Int → Prop) ⨯ Prop 
 -/
 
 end A
+
+section B
+
+-- B1
+theorem conj_as_neg_disj (P Q : Prop) : P ∧ Q → ¬(¬P ∨ ¬Q) := by
+  intro h' h''
+  rcases h' with ⟨p, q⟩
+  rcases h'' with np | nq
+  . apply np
+    assumption
+  . apply nq
+    assumption
+
+end B
