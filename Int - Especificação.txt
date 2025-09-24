@@ -1,0 +1,55 @@
+== Int - Especificação ==
+
+-- Leis (Axiomas): --
+
+* (∀… : Int) é implícito.
+
+(+)-ass : (x + y) + z = x + (y + z)
+(+)-com : x + y = y + x
+
+0-idR-(+) : x + 0 = x
+
+(-)-invR-(+) : x + (-x) = 0
+
+(·)-ass : (x · y) · z = x · (y · z)
+(·)-com : x · y = y · x
+
+1-idR-(·) : x · 1 = x
+
+(+)-distR-(·) : (x + y) · d = x · d + y · d
+
+NZD : a · b = 0  ⇒ a = 0 ∨ b = 0
+
+-- Teoremas (Consequências dos Axiomas) --
+
+* ⚠ → Ainda não foi demonstrado.
+* ☑ → Já foi demonstrado.
+
+☑ (+)-canR : x + c = y + c ⇒ x = y
+☑ (+)-canL : c + x = c + y ⇒ x = y
+
+☑ 0-idL-(+) : 0 + x = x
+☑ 0-annR-(·) : x · 0 = 0
+☑ 0-annL-(·) : 0 · x = 0
+
+☑ (-)-invL-(+) : (-x) + x = 0
+
+⚠ (·)-canR : (∀c ≠ 0)(∀x,y)[x · c = y · c ⇒ x = y]
+⚠ (·)-canL : (∀c ≠ 0)(∀x,y)[c · x = c · y ⇒ x = y]
+
+☑ 1-idL-(·) : 1 · x = x
+
+☑ ? : (-1) · x = -x
+
+☑ (+)-distL-(·) : d · (x + y) = d · x + d · y
+
+☑ (-)-invol : -(-x) = x
+☑ ? : (-a) · b = -(a · b) = a · (-b)
+
+☑ (∣)-refl : a ∣ a
+☑ (∣)-trans : a ∣ b ∧ b ∣ c ⇒ a ∣ c
+
+⚠ unicidade de (+)-id : ...
+⚠ unicidade de (·)-id : ...
+
+⚠ unicidade de inv-(+) : ...

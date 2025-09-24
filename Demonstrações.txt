@@ -1,0 +1,336 @@
+==================== Exercícios - FMC Book ====================
+
+---- x3.1 ----
+
+Θ. 0-idL-(+) ⇚⇛ (∀x : Int)[0 + x = x]
+
+Seja a : Int.  -- Alvo: 0 + a = a
+Calculamos:
+  a = a + 0  [((0)-idR-(+)) a]
+    = 0 + a  [((+)-com) a 0]
+∎
+
+Θ. (-)-invL-(+) ⇚⇛ (∀x : Int)[(-x) + x = 0]
+
+Seja a : Int.  -- Alvo: (-a) + a = 0
+Calculamos:
+  0 = a + (-a)  [((-)-invR-(+)) a]
+    = (-a) + a  [((+)-com) a -a]
+∎
+
+Θ. 1-idL-(·) ⇚⇛ (∀x : Int)[1 · x = x]
+
+Seja a : Int.  -- Alvo: 1 · a = a
+Calculamos:
+  a = a · 1  [((1)-idR-(·)) a]
+    = 1 · a  [((+)-com) a 1]
+∎
+
+θ. (+)-distL-(·) ⇚⇛ (∀d : Int)(∀x,y : Int)[d · (x + y) = d · x + d · y]
+
+Sejam d, u, v : Int.  -- Alvo: d · (u + v) = d · u + d · v
+Calculamos:
+  d · (u + v)
+    = (u + v) · d  [((·)-com) d (u + v)]
+    = u · d + v · d  [((+)-distR-(·)) d u v]
+    = d · u + d · v  [((·)-com) u d; ((·)-com) v d]
+∎
+
+---- x3.2 ----
+
+Θ. (∀a,b,c : Int)[a + b = c ⇔ a = c - b]
+
+Sejam a, b, c : Int. -- Alvo: (a + b = c ⇒ a = c - b) ∧ (a = c - b ⇒ a + b = c)
+Split.
+Parte L:  -- Alvo: a + b = c ⇒ a = c - b
+  Suponha a + b = c.  -- Alvo: a = c - b
+  Logo a + b + (-b) = c + (-b).  [(_ + (-b))]
+  Logo a + 0 = c + (-b).  [((-)-invR-(+)) b]
+  Logo a = c - b.  [(0-idR-(+)) a]
+  Imediato.
+Parte R:  -- Alvo: a = c - b ⇒ a + b = c
+  Suponha a = c - b.  -- Alvo: a + b = c
+  Logo a + b = c - b + b.  [(_ + b)]
+  Logo a + b = c + 0.  [((-)-invL-(+)) b]
+  Logo a + b = c.  [(0-idR-(+)) c]
+  Imediato.
+∎
+
+Θ. (∀a,b,c : Int)[a + b = c ⇔ b = c - a]
+
+Sejam a, b, c : Int. -- Alvo: (a + b = c ⇒ b = c - a) ∧ (b = c - a ⇒ a + b = c)
+Split.
+Parte L:  -- Alvo: a + b = c ⇒ b = c - a
+  Suponha a + b = c.  -- Alvo: b = c - a
+  Logo a + b + (-a) = c + (-a).  [(_ + (-a))]
+  Logo b + a + (-a) = c + (-a).  [((+)-com) a b]
+  Logo b + 0 = c + (-a).  [((-)-invR-(+)) a]
+  Logo b = c - a.  [(0-idR-(+)) b]
+  Imediato.
+Parte R:  -- Alvo: b = c - a ⇒ a + b = c
+  Suponha b = c - a.  -- Alvo: a + b = c
+  Logo b + a = c - a + a.  [(_ + a)]
+  Logo b + a = c + 0.  [((-)-invL-(+)) a]
+  Logo b + a = c.  [(0-idR-(+)) c]
+  Logo a + b = c.  [((+)-com) b a]
+  Imediato.
+∎
+
+Θ. (∀a,b)[a = b ⇔ a - b = 0]
+
+Sejam a, b : Int.  -- Alvo: (a = b ⇒ a - b = 0) ∧ (a - b = 0 ⇒ a = b)
+Split.
+Parte L:  -- Alvo: a = b ⇒ a - b = 0
+  Suponha a = b.  -- Alvo: a - b = 0
+  Logo a + (-b) = b + (-b).  [(_ + (-b))]
+  Logo a - b = 0.  [(0-idR-(+)) b]
+  Imediato.
+Parte R:  -- Alvo: a - b = 0 ⇒ a = b
+  Suponha a - b = 0.  -- Alvo: a = b
+  Logo a - b + b = 0 + b.  [(_ + b)]
+  Logo a + 0 = 0 + b.  [((-)-invL-(+)) b]
+  Logo a = b.  [(0-idR-(+)) a; (0-idR-(+)) b]
+  Imediato.
+∎
+
+---- x3.3 ----
+
+Θ. (∀a,b,x : Int)[a = b ⇒ a ♡ x = b ♡ x]
+
+Sejam a, b, x : Int.
+Suponha a = b.  -- Alvo: a ♡ x = b ♡ x
+Logo a ♡ x = b ♡ x.  [(_ ♡ x)]
+Imediato.
+∎
+
+Θ. (∀a,b,x : Int)[a = b ⇒ x ♡ a = x ♡ b]
+
+Sejam a, b, x : Int.
+Suponha a = b.  -- Alvo: x ♡ a = x ♡ b
+Logo a ♡ x = b ♡ x.  [(_ ♡ x)]
+Logo x ♡ a = b ♡ a.  [((♡)-com) a x; ((♡)-com) b x]
+Imediato.
+∎
+
+---- x3.5 ----
+
+θ. (+)-canR ⇚⇛ (∀c : Int)(∀x,y : Int)[x + c = y + c ⇒ x = y]
+
+Seja c : Int.
+Sejam u, v : Int.  -- Alvo: u + c = v + c ⇒ u = v
+Suponha u + c = v + c.  -- Alvo: u = v
+Logo (u + c) + (-c) = (v + c) + (-c).  [(_ + (-c))]
+Logo u + (c + (-c)) = v + (c + (-c)).  [((+)-ass) u c -c; ((+)-ass) v c -c]
+Logo u + 0 = v + 0.  [((-)-invR-(+)) c; ((-)-invR-(+)) c]
+Logo u = v.  [(0-idR-(+)) u; 0-idR-(+)) v]
+∎
+
+θ. (+)-canL ⇚⇛ (∀c : Int)(∀x,y : Int)[c + x = c + y ⇒ x = y]
+
+Sejam c, u, v : Int.
+Suponha c + u = c + v.  -- Alvo: u = v
+Logo u + c = v + c.  [((+)-com) c u; ((+)-com) c v]
+Logo u = v.  [((+)-canR) c u v]
+∎
+
+---- x3.7 ----
+
+Θ. unicidade de (·)-id ⇚⇛ (∀u,v : Int)[u, v (·)-id ⇒ u = v]
+
+...
+
+---- x3.8 ----
+
+Θ. (+)-resR ⇚⇛ (∀a,b)(∃!x)[a + x = b]
+
+Sejam a, b : Int.  -- Alvo: (∃!x)[a + x = b] ⇚⇛ (∃x)[a + x = b] ∧ (∀u,v)[a + u = b ∧ a + v = b ⇒ u = v]
+Split.
+Parte L:  -- (Existência) - Alvo: (∃x)[a + x = b]
+  Escolha (-a) + b.  -- Alvo: a + ((-a) + b) = b
+  Calculamos:
+    a + ((-a) + b)
+      = (a + (-a)) + b  [((+)-ass) a (-a) b ←]
+      = 0 + b  [((-)-invR-(+)) a]
+      = b  [(0-idL-(+)) b]
+    Imediato.
+Parte R:  -- (Unicidade) - Alvo: (∀u,v)[a + u = b ∧ a + v = b ⇒ u = v]
+  Sejam u, v : Int.
+  Suponha a + u = b ∧ a + v = b.  -- Alvo: u = v
+  Logo hu : a + u = b e hv : a + v = b.  [Ext-L; Ext-R]
+  Calculamos:
+    a + u = b  [hu]
+          = a + v  [hv ←]
+  Logo u = v.  [((+)-canL) a u v]
+  Imediato.
+∎
+
+Θ. (+)-resL ⇚⇛ (∀a,b)(∃!x)[x + a = b]
+
+Sejam a, b : Int.
+Split.
+Parte L:  -- (Existência) - Alvo: (∃x)[x + a = b]
+  Escolha (-a) + b.  -- Alvo: ((-a) + b) + a = b
+  Calculamos:
+    ((-a) + b) + a
+      = b + (a + (-a))  [((+)-ass) (-a) b a ←]
+      = b + 0  [((-)-invR-(+)) a]
+      = b  [(0-idR-(+)) b]
+    Imediato.
+Parte R:  -- (Unicidade) - Alvo: (∀u,v)[u + a = b ∧ v + a = b ⇒ u = v]
+  Sejam u, v : Int.
+  Suponha u + a = b ∧ v + a = b.  -- Alvo: u = v
+  Logo hu : u + a = b e hv : v + a = b.  [Ext-L; Ext-R]
+  Calculamos:
+    u + a = b  [hu]
+          = v + a  [hv ←]
+  Logo u = v.  [((+)-canR) a u v]
+  Imediato.
+∎
+
+---- x3.9 ----
+
+(Usando unicidade de resoluções)
+
+Θ. unicidade de (+)-id ⇚⇛ (∃!u : Int)(∀x : Int)[u + x = x = x + u]
+
+...
+
+Θ. unicidade de inv-(+) ⇚⇛ (∀x : Int)(∃!y : Int)[y + x = 0 = x + y]
+
+...
+
+---- x3.10 ----
+
+Θ. (∀x : Int)[(-1) · x = -x]
+
+Seja a : Int.  -- Alvo: (-1) · a = -a
+Calculamos:
+  a + (-1) · a
+    = 1 · a + (-1) · a  [(1-idL-(·)) a ←]
+    = (1 + (-1)) · a  [((+)-distL-(·)) a 1 (-1) ←]
+    = 0 · a  [((-)-invR-(+)) 1]
+    = 0  [(0-annL-(·)) a]
+  a + (-a)
+    = 0  [((-)-invR-(+)) a]
+Logo (-1) · a = -a.  [((+)-canL) a ((-1) · a) (-a)]
+Imediato.
+∎
+
+---- x3.11 ----
+
+Θ. (∀a,b : Int)[(-a) · b = -(a · b) = a · (-b)]
+
+Sejam x, y : Int.  -- Alvo: (-x) · y = -(x · y) = x · (-y)
+Split.
+Parte L:  -- Alvo: (-x) · y = -(x · y)
+  Calculamos:
+    -(x · y) = (-1) · (x · y)  [(x3.10) (x · y) ←]
+             = ((-1) · x) · y  [((·)-ass) (-1) x y ←]
+             = (-x) · y  [(x3.10) x]
+  Imediato.
+Parte R:  -- Alvo: -(x · y) = x · (-y)
+  Calculamos:
+    -(x · y) = (-1) · (x · y)  [(x3.10) (x · y) ←]
+             = (-1) · (y · x)  [((·)-com) x y]
+             = ((-1) · y) · x  [((·)-ass) (-1) y x ←]
+             = (-y) · x  [(x3.10) y]
+             = x · (-y)  [((·)-com) (-y) x]
+  Imediato.
+∎
+
+---- x3.12 ----
+
+Θ. (∀a,b : Int)[(-a) · (-b) = a · b]
+
+Sejam a, b : Int.  -- Alvo: (-a) · (-b) = a · b
+Calculamos:
+  (-a) · (-b)
+    = (-a) · ((-1) · b)  [(x3.10) b ←]
+    = ((-a) · (-1)) · b  [((·)-ass) (-a) (-a) b ←]
+    = (((-1) · a) · (-1)) · b  [(x3.10) a ←]
+    = ((a · (-1)) · (-1)) · b  [((·)-com) (-1) a]
+    = (a · ((-1) · (-1)) · b  [((·)-ass) a (-1) (-1)]
+    = (a · (-(-1))) · b  [(x3.10) (-1)]
+    = (a · 1) · b  [((-)-invol) 1]
+    = a · b  [(1-idR-(·)) a]
+Imediato.
+∎
+
+---- x3.13 ----
+
+Θ. (∀a,b : Int)[-(a - b) = b - a ∧ -(a + b) = -a - b]
+
+Sejam a, b : Int.
+Split.
+Parte L:  -- Alvo: -(a - b) = b - a
+  Calculamos:
+    -(a - b) = (-1) · (a + (-b))  [(x3.10) (a - b) ←]
+             = (-1) · a + (-1) · (-b)  [((+)-distL-(·)) (-1) a (-b)]
+             = (-a) + (-(-b))  [(x3.10) a; (x3.10) (-b)]
+             = (-a) + b  [((-)-invol) b]
+             = b - a  [((+)-com) (-a) b]
+  Imediato.
+Parte R:  -- Alvo: -(a + b) = -a - b
+  Calculamos:
+    -(a + b) = (-1) · (a + b)  [(x3.10) (a + b) ←]
+             = (-1) · a + (-1) · b  [((+)-distL-(·)) (-1) a b]
+             = -a - b  [(x3.10) a; (x3.10) b]
+  Imediato.
+∎
+
+---- x3.14 ----
+
+Θ. 0-annR-(·) ⇚⇛ (∀x : Int)[x · 0 = 0]
+
+Seja a : Int.  -- Alvo: a · 0 = 0
+Calculamos:
+  a · 0 + 0 = a · 0  [(0-idR-(+)) (a · 0)]
+            = a · (0 + 0)  [(0-idR-(+)) 0 ←]
+            = a · 0 + a · 0  [((+)-distL-(·)) a 0 0]
+Logo a · 0 = 0.  [((+)-canL) (a · 0) 0 (a · 0)]
+∎
+
+Θ. 0-annL-(·) ⇚⇛ (∀x : Int)[0 · x = 0]
+
+Seja a : Int.  -- Alvo: 0 · a = 0
+Calculamos:
+  0 · a = a · 0  [((·)-com) 0 a]
+        = 0  [(0-annR-(·)) a]
+∎
+
+==================== Outros exercícios ====================
+
+Θ. (∀x : Int)[-(-x) = x]
+
+Seja a : Int.  -- a : Int ⊢ -(-a) = a
+Calculamos:
+  (-a) + (-(-a))
+    = 0  [((-)-invR-(+)) -a]
+    = (-a) + a  [((-)-invL-(+)) a ←]
+-- Dados: …, (-a) + (-(-a)) = (-a) + a
+Logo -(-a) = a.  [((+)-canL) -a -(-a) a].
+∎
+
+Θ. (∣)-refl ⇚⇛ (∀a : Int)[a ∣ a]
+
+Seja x : Int.  -- Alvo: x ∣ x ⇚⇛ (∃k : Int)[x · k = x]
+Escolha o 1.  -- Alvo: x · 1 = x
+Calculamos:
+  x · 1 = x  [(1-idR-(·)) x]
+∎
+
+Θ. (∣)-trans ⇚⇛ (∀a,b,c : Int)[a ∣ b ∧ b ∣ c ⇒ a ∣ c]
+
+Sejam a, b, c : Int.
+Suponha a ∣ b ∧ b ∣ c.  -- Alvo: (∃k)[a · k = c]
+Logo a ∣ b e b ∣ c.  [Ext-L; Ext-R]
+Como a ∣ b, logo seja x : Int tal que a · x = b.
+Como b ∣ c, logo seja y : Int tal que b · y = c.
+Calculamos:
+  c = b · y  [pela escolha de y ←]
+    = a · x · y  [pela escolha de x ←]
+    = a · (x · y)  [((·)-ass) a x y]
+Escolho o x · y como testemunha.  -- Alvo: a · x · y = c
+Imediato.
+∎
+
