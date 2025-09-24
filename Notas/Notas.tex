@@ -1,0 +1,328 @@
+\documentclass[portuguese,a4paper,12pt]{article}
+
+\usepackage[brazil]{babel}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{makecell}
+
+\newcommand{\iffdef}{\overset{\mathrm{def}}{\iff}}
+\newcommand{\eqdef}{\overset{\mathrm{def}}{=}}
+
+\newcommand{\intiff}{\Lleftarrow\!\Rrightarrow}
+\newcommand{\intdefiff}{\overset{\mathrm{def}}{\intiff}}
+
+\newcommand{\inteq}{\equiv}
+\newcommand{\intdefeq}{\overset{\mathrm{def}}{\inteq}}
+
+\newcommand{\sugeq}{\overset{\mathrm{sug}}{\equiv}}
+\newcommand{\sugiff}{\overset{\mathrm{sug}}{\intiff}}
+
+\renewcommand{\arraystretch}{1.5}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5em}
+\setlist{itemsep=0em}
+
+\begin{document}
+	\title{Anotações -- FMC I}
+	\author{Sérgio Dantas}
+	\date{21 de agosto de 2025 -- \today}
+	\maketitle
+	
+	\section*{\centering Exercícios}
+	
+	\subsection*{x1.1}
+	
+	Faz sentido que, em uma equivalência, `$\implies$' corresponda a ``somente se'', enquanto `$\impliedby$' a ``se''.
+	 
+	\subsection*{x1.2}
+	
+	`$\implies$' pode ser lido como ``é suficiente'', ao passo que `$\impliedby$', como ``é necessário''.
+	
+	\subsection*{x1.3}
+	
+	\begin{enumerate}[label=(\arabic*)]
+		\item $(x + y)^2 = x^2 + 2xy + y^2$.
+		\item $x(a - (b + c)) = xa - x(b + c) \implies x(a - (b + c)) = xa - xb - xc$.
+		\item Concluímos que $(A \subseteq B) \iff (B \subseteq A)$.
+		\item Suponha que $n$ é um número inteiro. Vamos demonstrar que $n + 1$ é maior que $n$.
+	\end{enumerate}
+	
+	\subsection*{x1.4}
+	
+	O problema da definição está no fato dela não restringir quais valores de $k$ são válidos no lado direito da proposição (foi dito ``para qualquer inteiro $k$''). A solução seria substituir ``para qualquer inteiro $k$'' por ``existe pelo menos um $k$''. Simbologicamente, teremos:
+	$$
+	n \text{ é par} \intdefiff (\exists k: int)[n = 2k]
+	$$
+	Note que foi utilizado não o símbolo de equivalência comum, mas o de equivalência intensional com definição.
+	
+	\subsection*{x1.5}
+	
+	\begin{enumerate}[label=(\roman*)]
+		\item Sim. Mesma coisa que entre proposições, mas com objetos e igualdades.
+
+		\item Acredito que sim, proposições intensionalmente iguais também são extensionalmente iguais.
+		
+		Quando afirmamos que duas proposições são extensionalmente equivalentes, dizemos que apenas o significado ``externo'' de ambas são idênticos. Por outro lado, quando se trata de uma equivalência intensional, tanto o significado quanto as suas partes mais internas (e aqui me refiro principalmente ao algoritmo necessário para alcançar cada prop) são as mesmas.
+		
+		Resumidamente, pelo que entendi, seria como dizer que a intensão abrange a extensão, mas o contrário não é verdadeiro.
+		
+		Dessa forma, se duas props são equivalentes em intensão, creio que é totalmente válido que elas também sejam equivalentes em extensão.
+	\end{enumerate}
+	
+	\subsection*{x1.6}
+	
+	\begin{enumerate}[label=(\arabic*)]
+		\item $2 \cdot 3 = 6$
+		\item $2 \cdot 3 = 3 \cdot 2$
+		\item $x \text{ ama } y \intiff y \text{ é amado por } x$
+		\item $n \text{ é par} \intiff \text{existe } k \in \mathbb{Z} \text{ tal que } n = 2k$
+		\item $\text{Matheus mora na capital do RN} \iff \text{Matheus mora na maior cidade do RN}$
+		\item $\text{a capital da Grécia} = \text{Atenas}$
+		\item $\text{o vocalista da banda Sarcófago é professor da UFMG} \iff \text{Wagner Moura é professor da maior universidade de MG}$
+		\item $\text{Aristoteles foi professor de Alexandre o Grande} \iff \text{Aristoteles ensinou Alexandre o Grande}$
+		\item $\text{A terra é plana} \iff \text{A lua é feita de queijo}$
+		\item $x^2 + y^2 \leq 0 \iff x = y = 0$
+		\item $x^2 + y^2 \leq 0 \iff 0 \geq x \cdot x + y \cdot y$
+		\item $(x^2 + y^2)^2 = (x \cdot x + y^2)(x^2 + y \cdot y)$
+	\end{enumerate}
+	
+	\subsection*{x1.7}
+	
+	\begin{enumerate}[label=(\alph*)]
+		\item Proposição
+		\item Objeto
+		\item Objeto
+		\item Proposição
+		\item Objeto
+		\item Proposição
+	\end{enumerate}
+	
+	\subsection*{x1.8}
+	
+	\begin{enumerate}[label=(\arabic*)]
+		\item Proposição
+		\item Proposição
+		\item Objeto
+		\item Objeto
+		\item Proposição
+	\end{enumerate}
+	
+	\subsection*{x1.9}
+	
+	\begin{enumerate}[label=(\arabic*)]
+		\item Existe um número inteiro tal que o seu dobro somado a 1 é igual a 13.
+		\item Existem dois números tais que o quadrado da sua soma é igual ao quadrado do primeiro número somado ao dobro do produto entre o primeiro e o segundo número.
+		\item Aquela função que dado um número qualquer retorna esse número somado a 1.
+		\item O conjunto de todos os livros cujo título tem o mesmo número de letras que alguma palavra.
+	\end{enumerate}
+	
+	\subsection*{x1.10}
+	
+	\begin{enumerate}[label=(\arabic*)]
+		\item Existem duas pessoas que se amam.
+		\item Existe uma pessoa tal que ela ama $q$ e $q$ ama ela.
+		\item $x + y = z$
+		\item Existe um número que quando somando a $y$ resulta em $z$.
+		\item Existem dois números tais que o primeiro somado a $y$ é igual ao segundo.
+		\item Para qualquer número, existe outro número que quando ambos são somados resultam em $z$.
+		\item Para quaisquer dois números, existe outro número que quando somado ao primeiro resulta no segundo.
+	\end{enumerate}
+	
+	\subsection*{x1.11}
+	
+	\begin{enumerate}[label=(\arabic*)]
+		\item[(3)] existe $\textcolor{red}{n}$ tal que $\textcolor{red}{n} - d$ e $\textcolor{red}{n} + d$ são primos.
+		\item[(5)] existe $\textcolor{green}{N}$ tal que para todo $\textcolor{red}{n}$, se $\textcolor{red}{n} \geq \textcolor{green}{N}$ então existe $\textcolor{blue}{d}$ tal que $\textcolor{red}{n} - \textcolor{blue}{d}$ e $\textcolor{red}{n} + \textcolor{blue}{d}$ são primos.
+	\end{enumerate}
+	
+	\subsection*{x1.12}
+	
+	\begin{itemize}
+		\item ``qualquer que seja \underline{\ \ \ \ \ }, ...''
+		\item \texttt{let \underline{\ \ \ \ \ }} (JavaScript)
+		\item \texttt{for \underline{\ \ \ \ \ } in \underline{\ \ \ \ \ }} (Python/JavaScript)
+	\end{itemize}
+	
+	\subsection*{x1.13}
+	
+	\begin{enumerate}[label=(\roman*)]
+		\item Sim, pois $n$ é uma variável ligada.
+		\item Não, pois já existe uma variável de nome $d$. Supondo que fizessemos a renomeação de $n$ para $d$, a variável $d$ original seria sombreada e capturada e, consequentemente, não poderia ser referida no escopo.
+		\item Não, pois $d$ é uma variável livre e, caso a renomeação fosse feita, a proposição mudaria de significado.
+	\end{enumerate}
+	
+	\subsection*{x1.14}
+	
+	\begin{enumerate}[label=(\roman*)]
+		\item Não, pois iria sombrear a variável $n$ original.
+		\item Sim, pois as variáveis $N$ e $d$ originais estão em escopos distintos, logo não haveria sombreamento de $d$.
+		\item Não, pois a variável $N$ original seria sombreada.
+		\item Não, pois a variável $d$ original iria ser sombreada.
+		\item Não, pois a variável $n$ original seria sombreada.
+		\item Sim, pois as variáveis $d$ e $N$ estão em escopos distintos, logo não haveria sombreamento de $N$.
+	\end{enumerate}
+	
+	\subsection*{x1.15}
+	
+	$sister(x)$ não é determinado para todos os valores de $x \in P$ tais que $x$ não tem nenhuma $sister$ ou $x$ tem mais de uma $sister$.
+	
+	\subsection*{x1.16}
+	
+	Duas retas são paralelas se elas não possuem nenhum ponto em comum.
+	
+	\subsection*{x1.17}
+	
+	\begin{enumerate}[label=(\roman*)]
+		\item Falsa
+		\item Verdadeira
+		\item Verdadeira
+		\item Verdadeira
+		\item Verdadeira
+		\item Falsa
+		\item Verdadeira
+		\item Falsa
+		\item Falsa
+		\item Falsa
+		\item Verdadeira
+		\item Falsa
+	\end{enumerate}
+	
+	\subsection*{x1.18}
+	
+	Acredito que sim. Se dois objetos são definidas exatamente da mesma forma, com a mesma intensionalidade e o mesmo significado lógico, então eles também possuem o mesmo resultado (valor/significado externo), isto é, são extensionalmente iguais.
+	
+	\subsection*{x1.19}
+	
+	\colorbox{green}{SKIP}
+	
+	\subsection*{x1.20}
+	
+	\colorbox{yellow}{TO DO}
+	
+	\subsection*{x2.1}
+	
+	\colorbox{yellow}{TO DO}
+	
+	\subsection*{x2.2}
+	
+	O problema está em usar a própria definição de ($\mid$) para ``justificar'' $8 \nmid 12$. Isso constitui uma prova por repetição da definição.
+	
+	\subsection*{x2.3}
+	
+	A demonstração está errada porque ela afirma que $a = mu$ e $b = mv$, quando na verdade o correto (pela proposição) é $m = au$ e $m = bv$, respectivamente; tal afirmação faz com que ela chegue a uma conclusão diferente da definição.
+	
+	Para demonstrar que a proposição é falsa, tome, para contraexemplo, $a := 3$, $b := 9$ e $m := 9$. Veja que $3 \mid 9$ e $9 \mid 9$ são ambas proposições válidas, pois obtemos $u = 3$ e $v = 1$, respectivamente, com $u, v \in \mathbb{Z}$. Todavia, $3 \cdot 9 \nmid 9$, uma vez que não existe inteiro $k$ que satisfaça $9 = 3 \cdot 9 \cdot k$. Portanto, a proposição é falsa.
+	
+	\subsection*{x2.4}
+	
+	\colorbox{yellow}{TO DO}
+	
+	\subsection*{x2.5}
+	
+	``Se \underline{\ \ \ \ }$A$\underline{\ \ \ \ }, (então) \underline{\ \ \ \ }$B$\underline{\ \ \ \ }'' é uma afirmação que promete que, dada $A$, nos entrega $B$, sem verificar a veracidade de ambas.
+	
+	``Como \underline{\ \ \ \ }$A$\underline{\ \ \ \ }, (logo) \underline{\ \ \ \ }$B$\underline{\ \ \ \ }'', por outro lado, é uma argumentação que leva em conta se $A$ é verdadeira ou não, e, assim, infere $B$.
+	
+	\subsection*{x3.1}
+	
+	\colorbox{green}{NO ARQUIVO COM DEMONSTRAÇÕES}
+	
+	\subsection*{x3.2}
+	
+	\colorbox{green}{NO ARQUIVO COM DEMONSTRAÇÕES}
+	
+	\subsection*{x3.3}
+	
+	\colorbox{green}{NO ARQUIVO COM DEMONSTRAÇÕES}
+	
+	\subsection*{x3.4}
+	
+	Creio que não. Se for uma soma, basta aplicar $(+ (-x))$ em ambos os lados da igualdade. Mas se for uma multiplicação, como faríamos para ``dividir'' (\textit{o que é isso?}) ambos os lados por $x$? Ainda não temos isso em nossa especificação. A única exceção seria para o caso onde $x := 1$, onde poderíamos aplicar $\text{1-idR-(\cdot)}$.
+	
+	\subsection*{x3.5}
+	
+	\colorbox{green}{NO ARQUIVO COM DEMONSTRAÇÕES}
+	
+	\subsection*{x3.6}
+	
+	\colorbox{yellow}{TO DO}
+	
+	\subsection*{x3.7}
+	
+	\colorbox{yellow}{TO DO}
+	
+	\subsection*{x3.8}
+	
+	\colorbox{green}{NO ARQUIVO COM DEMONSTRAÇÕES}
+	
+	\subsection*{x3.9}
+	
+	\colorbox{yellow}{TO DO}
+	
+	\subsection*{x3.10}
+	
+	\colorbox{green}{NO ARQUIVO COM DEMONSTRAÇÕES}
+	
+	\subsection*{x3.11}
+	
+	\colorbox{green}{NO ARQUIVO COM DEMONSTRAÇÕES}
+	
+	\subsection*{x3.12}
+	
+	\colorbox{green}{NO ARQUIVO COM DEMONSTRAÇÕES}
+	
+	\subsection*{x3.13}
+	
+	\colorbox{green}{NO ARQUIVO COM DEMONSTRAÇÕES}
+	
+	\subsection*{x3.14}
+	
+	\colorbox{green}{NO ARQUIVO COM DEMONSTRAÇÕES}
+	
+	\section*{\centering Questões}
+	
+	\subsection*{Q1.50}
+	
+	\begin{enumerate}[label=(\arabic*)]
+		\item \label{Q1.50:1} Nesta frase há uma colocação redundante da variável $x$. Perceba que a frase poderia ser simplesmente ``todo inteiro divide ele mesmo'', sem alteração no seu significado.
+		\item Mesmo caso do item \ref{Q1.50:1}, mas com a variável $n$. Poderia ser apenas ``existe número tal que ele é primo e par''.
+		\item Novamente o caso do item \ref{Q1.50:1}; poderia ser ``qualquer conjunto é determinado por seus membros''.
+		\item Mesma coisa do item \ref{Q1.50:1}. Podemos omitir a variável ligada $P$ (é redundante): ``existe pessoa $p$ tal que $p$ viajou para todos os países''.
+		\item Mais uma vez o que ocorreu no item \ref{Q1.50:1}. Aqui podemos omitir a variável $f$, teríamos ``existe pessoa $p$ tal que $p$ assistiu a todos os filmes da lista $F$''.
+	\end{enumerate}
+	
+	\subsection*{Q1.81}
+	
+	É uma árvore ``de derivação'' porque, partindo de um objeto final, o destrinchamos em objetos ``menores'' até alcançar as \textit{folhas}, que são a menor unidade possível da árvore de derivação.
+	
+	\subsection*{Q1.84}
+	
+	Não, pois ela infere que toda árvore que possui azeitonas é uma oliveira; embora seja válida (por coincidência), esse processo de inferência poderia facilmente dar errado com outras proposições.
+	
+	\subsection*{Q2.28}
+	
+	Para que seja possível ganhar mais dados e, assim, se torne mais fácil atacar o alvo.
+	
+	\section*{\centering Problemas}
+	
+	\subsection*{$\Pi$2.1}
+	
+	\colorbox{yellow}{TO DO}
+	
+	\subsection*{$\Pi$2.2}
+	
+	\colorbox{yellow}{TO DO}
+	
+	\subsection*{$\Pi$2.3}
+	
+	\colorbox{yellow}{TO DO}
+	
+	\subsection*{$\Pi$2.4}
+	
+	\colorbox{yellow}{TO DO}
+\end{document}
