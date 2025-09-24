@@ -1,0 +1,247 @@
+---- 2024.2
+
+-- A
+
+Suponha _.                                : Prop → Cmd
+Se _, então x _ y é _.                    : Prop ⨯ (Int ⨯ Int → Int) ⨯ (Int → Prop) → Prop
+Na casa de _ tem _ gato(s).               : Person ⨯ Nat → Prop
+_ mora em _, junto com mais _ habitantes. : Person ⨯ City ⨯ Nat → Prop
+Existe _ : _ tal que _.                   : Var ⨯ Type ⨯ Prop → Prop
+Seja x : _ tal que x = x.                 : Type → Cmd
+Como _, logo _ é inocente.                : Prop ⨯ Person → Cmd
+n | m ⇐≝⇒ (∃k : _)[_ = _]                 : Type ⨯ Int ⨯ Int → Cmd
+
+-- B1
+
+Alvo: ¬P ∨ ¬Q ⇒ ¬(P ∧ Q)
+Demonstração:
+
+Suponha h : ¬P ∨ ¬Q.
+Suponha P ∧ Q.  -- Alvo: ⊥
+Logo P e Q.  [Ext-L; Ext-R]  -- Dados: …, P, Q
+Separe em casos a partir de h.
+Caso L:  -- Dados: …, ¬P
+  Aplique ¬P em P para obter ⊥.
+  Contradição.
+Caso R:  -- Dados: …, ¬Q
+  Aplique ¬Q em Q para obter ⊥.
+  Contradição.
+∎
+
+-- B2
+
+Alvo: (P ⇒ Q) ∨ (Q ⇒ P)
+⛤ Demonstração:
+
+Separe em casos a partir de LEM[Q].
+Caso L:  -- Dados: …, Q
+  Esc-L.
+  Suponha P.
+  Imediato.
+Caso R:  -- Dados: …, ¬Q
+  Esc-R.
+  Suponha Q.
+  Aplique ¬Q em Q para obter ⊥.
+  Contradição.
+∎
+
+-- C2
+
+Alvo: (∀a : Int)[-(-a) = a]
+Demonstração:
+
+Seja x : Int.  -- Alvo: -(-x) = x
+Calculamos:
+  (-x) + (-(-x))
+    = 0  [((-)-invR-(+)) (-x)]
+    = (-x) + x  [((-)-invR-(+)) x ←]
+Logo -(-x) = x.  [((+)-canL) (-x) (-(-x)) x]
+Imediato.
+∎
+
+Lemmata:
+
+Θ. (+)-canL ⇚⇛ (∀c)(∀x,y)[c + x = c + y ⇒ x = y]
+
+Sejam c, x, y : Int.
+Suponha c + x = c + y.  -- Alvo: x = y
+Logo (-c) + (c + x) = (-c) + (c + y).  [((-c) + _)]
+Logo ((-c) + c) + x = ((-c) + c) + y.  [((+)-ass) (-c) c x ←; ((+)-ass) (-c) c y ←]
+Logo (c + (-c)) + x = (c + (-c)) + y.  [((+)-com) (-c) c; ((+)-com) (-c) c]
+Logo 0 + x = 0 + y.  [((-)-invR-(+)) c; ((-)-invR-(+)) c]
+Logo x + 0 = y + 0.  [((+)-com) 0 x; ((+)-com) 0 y]
+Logo x = y.  [(0-idR-(+)) x; (0-idR-(+)) y]
+Imediato.
+∎
+
+-- C3
+
+-- (∀u ≠ 0)(∀a,b)[au = bu ⇒ a = b]
+
+Alvo: (∀a,b)[ab = 0 ⇒ a = 0 ∨ b = 0]
+Demonstração:
+
+Sejam x, y : Int.
+Suponha h : xy = 0.  -- Alvo: x = 0 ∨ y = 0
+Separe em casos a partir de LEM[x = 0].
+Caso L:  -- Dados: …, x = 0
+  Esc-L.
+  Imediato.
+Caso R:  -- Dados: …, ¬(x = 0) ⇚⇛ x ≠ 0
+  Esc-R.  -- Alvo: y = 0
+  Aplique (·)-canR* em x ≠ 0 para obter hcan : (∀a,b)[ax = bx ⇒ a = b].
+  Aplique hcan em ⟨y, 0⟩ para obter yx = 0x ⇒ y = 0.
+  Logo basta demonstrar yx = 0x.  -- Alvo: yx = 0x
+  Calculamos:
+    yx = xy  [((·)-com) y x]
+       = 0   [h]
+       = 0x  [(0-annL-(·)) x ←]
+  Imediato.
+∎
+
+Lemmata:
+
+θ. 0-annL-(·) ⇚⇛ (∀x)[0 · x = 0]
+
+Seja a : Int.  -- Alvo: 0 · a = 0
+Calculamos:
+  0 · a = (0 + 0) · a  [(0-idR-(+)) 0 ←]
+        = 0 · a + 0 · a  [((+)-distR-(·)) a 0 0]
+  0 · a = 0 · a + 0  [(0-idR-(+)) (a · 0) ←]
+Logo 0 · a = 0.  [(+)-resR]
+∎
+
+Θ. (+)-resR ⇚⇛ (∀a,b)(∃!x)[a + x = b]
+
+Sejam a, b : Int.  -- Alvo: (∃!x)[a + x = b] ⇚⇛ (∃x)[a + x = b] ∧ (∀u,v)[a + u = b ∧ a + v = b ⇒ u = v]
+Split.
+Parte L:  -- (Existência) - Alvo: (∃x)[a + x = b]
+  Escolha (-a) + b.  -- Alvo: a + ((-a) + b) = b
+  Calculamos:
+    a + ((-a) + b)
+      = (a + (-a)) + b  [((+)-ass) a (-a) b ←]
+      = 0 + b  [((-)-invR-(+)) a]
+      = b + 0  [((+)-com) 0 b]
+      = b  [(0-idR-(+)) b]
+    Imediato.
+Parte R:  -- (Unicidade) - Alvo: (∀u,v)[a + u = b ∧ a + v = b ⇒ u = v]
+  Sejam u, v : Int.
+  Suponha a + u = b ∧ a + v = b.  -- Alvo: u = v
+  Logo hu : a + u = b e hv : a + v = b.  [Ext-L; Ext-R]
+  Calculamos:
+    a + u = b  [hu]
+          = a + v  [hv ←]
+  Logo (-a) + (a + u) = (-a) + (a + v).  [((-a) + _)]
+  Logo ((-a) + a) + u = ((-a) + a) + v.  [((+)-ass) (-a) a u ←; ((+)-ass) (-a) a v ←]
+  Logo (a + (-a)) + u = (a + (-a)) + v.  [((+)-com) (-a) a; ((+)-com) (-a) a]
+  Logo 0 + u = 0 + v.  [((-)-invR-(+)) a (-a); ((-)-invR-(+)) a (-a)]
+  Logo u + 0 = v + 0.  [((+)-com) 0 u; ((+)-com) 0 v]
+  Logo u = v.  [(0-idR-(+)) u; (0-idR-(+)) v]
+  Imediato.
+∎
+
+---- 2023.2
+
+-- A
+
+Um amigo de _ fala grego.               : Person → Prop
+_ fala _ e mais _ línguas fluentemente. : Person ⨯ Lang ⨯ Nat → Prop
+Para todo _ : Int, _.                   : Var ⨯ Prop → Prop
+Seja x : _ tal que x = x.               : Type → Cmd
+Suponha _.                              : Prop → Cmd
+Se _, então _ + 1 é _.                  : Prop ⨯ Int ⨯ (Int → Prop) → Prop
+Como _, logo _ é par.                   : Prop ⨯ Int → Cmd
+n ≤ m ⇐≝⇒ (∃k : _)[_]                   : Type ⨯ Prop → Cmd
+
+-- B
+
+Alvo: ((P ∧ Q) ⇒ R) ⇒ ((P ⇒ Q) ⇒ R) ∨ (P ⇒ (Q ⇒ R))
+Demonstração:
+
+Suponha (P ∧ Q) ⇒ R.
+Separe em casos a partir de LEM[P].
+Esc-R.  -- Alvo: P ⇒ (Q ⇒ R)
+Caso L:  -- Dados: …, P
+  Suponha P.
+  Suponha Q.  -- Alvo: R
+  Vou demonstrar P ∧ Q.
+    Split.
+    Parte L:
+      Imediato.
+    Parte R:
+      Imediato.
+Caso R:  -- Dados: …, ¬P
+  Suponha P.
+  Aplique ¬P em P para obter ⊥.
+  Contradição.
+∎
+
+-- C1
+
+Alvo: (∀a : Int)[(-1) · a = -a]
+Demonstração:
+
+Seja x : Int.  -- Alvo: (-1) · x = -x
+Calculamos:
+  x + (-1) · x = x · 1 + (-1) · x  [(1-idR-(·)) x ←]
+               = 1 · x + (-1) · x  [((·)-com) x 1]
+               = (1 + (-1)) · x  [((+)-distL-(·)) x 1 (-1) ←]
+               = 0 · x  [((-)-invR-(+)) 1]
+               = 0  [(0-annL-(·)) x]
+               = x + (-x)  [((-)-invR-(+)) x ←]
+Logo (-1) · x = -x.  [(+)-resR!]
+Imediato.
+∎
+
+Lemmas:
+
+Θ. 0-annL-(·) ⇚⇛ (∀x)[0 · x = 0]
+
+Seja x : Int.  -- Alvo: 0 · x = 0
+Calculamos:
+  0 · x + 0
+    = 0 · x  [(0-idR-(+)) (0 · x)]
+    = (0 + 0) · x
+    = 0 · x + 0 · x
+Logo 0 · x = 0.  [(+)-resR!]
+∎
+
+Θ. (+)-resR! ⇚⇛ (∀m,n)(∀a,b)[a + m = b ∧ a + n = b ⇒ m = n]
+
+Sejam m, n : Int.
+Sejam a, b : Int.
+Suponha a + m = b ∧ a + n = b.
+Logo hm : a + m = b e hn : a + n = b.  -- Alvo: m = n
+Calculamos:
+  a + m = b  [hm]
+        = a + n  [hn ←]
+Logo (-a) + (a + m) = (-a) + (a + n).  [((-a) + _)]
+Logo ((-a) + a) + m = ((-a) + a) + n.  [((+)-ass) (-a) a m ←; ((+)-ass) (-a) a n ←]
+Logo (a + (-a)) + m = (a + (-a)) + n.  [((+)-com) (-a) a; ((+)-com) (-a) a]
+Logo 0 + m = 0 + n.  [((-)-invR-(+)) a (-a); ((-)-invR-(+)) a (-a)]
+Logo m + 0 = n + 0.  [((+)-com) 0 m; ((+)-com) 0 m]
+Logo m = n.  [(0-idR-(+)) m; (0-idR-(+)) n]
+Imediato.
+∎
+
+-- C2
+
+Alvo: (∀a,b,u)[au = bu ⇒ a = b ∨ u = 0]
+Demonstração:
+
+Sejam a, b, u : Int.
+Suponha au = bu.  -- Alvo: a = b ∨ u = 0
+Logo a · u + (-(b · u)) = b · u + (-(b · u)).
+Logo a · u + (-(b · u)) = 0.
+Logo a · u + (-b) · u = 0.
+Logo (a + (-b)) · u = 0.
+Logo hnzd : (a + (-b)) = 0 ∨ u = 0.
+Separe em casos a partir de hnzd.
+Caso L:  -- Dados: …, a + (-b) = 0
+  Esc-L.
+  Como a + (-b) = 0 e a + (-a) = 0, logo -b = -a.
+  ⨯ Morri aqui
+Caso R:  -- Dados: …, u = 0
+  Esc-R.
+  Imediato.
+
