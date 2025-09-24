@@ -1,0 +1,173 @@
+========= COMO USAR =========
+
+--- Conjunção (P ∧ Q) ---
+
+Para extrair as duas partes:
+
+rcases h with ⟨p, q⟩
+
+Para extrair só uma das partes:
+
+have p := h.left
+       OU
+have q := h.right
+
+* Também podemos substituir left por 1 e right por 2.
+
+--- Bi-implicação (P ⇔ Q) ---
+
+É uma conjunção (P ⇒ Q ∧ Q ⇒ P).
+
+--- Disjunção (P ∨ Q) ---
+
+Forma 1:
+
+rcases h with p | q
+· <Caso L com p nos dados>
+  …
+. <Caso R com q nos dados>
+  …
+
+Forma 2:
+
+cases h with
+| inl p =>
+  <Caso L com p nos dados>
+  …
+| inr q =>
+  <Caso R com q nos dados>
+  …
+
+--- Implicação (P ⇒ Q) ---
+
+have q := h p
+
+* (Aplique h em p para obter Q.)
+
+--- Contradição (⊥) ---
+
+Dados: …, c : False
+
+exfalso
+exact c
+
+* Podemos substituir "exact x" por "assumption" ou "contradiction".
+* Também podemos aplicar "contradiction" diretamente sem o "exfalso".
+
+--- Quantificador universal (∀) ---
+
+Dados: …, a : Int, h : (∀x : Int)[P(x)]
+
+have pa := h a
+
+* (Aplique h em a para obter P(a).)
+
+--- Quantificador existencial (∃) ---
+
+Dados: …, h : (∃x : Int)[P(x)]
+
+obtain ⟨a, pa⟩ := h
+
+* (Como h, logo seja a tal que pa.)
+
+
+
+========= COMO ATACAR =========
+
+--- Conjunção (P ∧ Q) ---
+
+constructor
+· <Parte L da demonstração>
+  …
+· <Parte R da demonstração>
+  …
+
+--- Bi-implicação (P ⇔ Q) ---
+
+É uma conjunção (P ⇒ Q ∧ Q ⇒ P).
+
+--- Disjunção (P ∨ Q) ---
+
+left
+ OU
+right
+
+* Esc-L ou Esc-R, respectivamente.
+
+--- Implicação (P ⇒ Q) ---
+
+intro p
+
+* (Suponha P.)
+* Podemos usar vários "intro" aninhados. Ex.: intro p q r s
+
+--- Quantificador universal (∀) ---
+
+Alvo: (∀x : Int)[P(x)]
+
+intro a
+
+* (Seja a : Int.)
+* Ganhamos a : Int e nosso alvo vira P(a).
+
+--- Quantificador existencial (∃) ---
+
+Alvo: (∃x : Int)[P(x)]
+Dados: …, a : Int
+
+exists a
+
+* (Escolho o a.)
+* Nosso alvo vira P(a).
+
+
+
+========= MAIS DICAS =========
+
+--- Ganhar um dado ---
+
+Para abrir uma "subdemonstração" e ganhar um novo dado:
+
+have hpq : P → Q := by
+  <Comandos da subdemonstração>
+  …
+
+--- Basta demonstrar ---
+
+Se o alvo é P ⇒ Q e Q está nos dados, basta demonstrar P.
+
+Alvo: P → Q
+Dados: …, q : Q
+
+apply q
+
+* O alvo se torna P.
+* Assim como "intro", também podemos usar diversos "apply" consecutivos. Ex.: apply q r t
+
+--- Calculamos ---
+
+O comando "calc" é parecido com o nosso "Calculamos: …".
+
+Exemplo:
+
+calc
+  a * 0 = a * 0 + 0                     := by rw [Int.add_zero]
+  _     = a * 0 + (a * 0 + (-(a * 0)))  := by rw [Int.add_right_neg]
+  _     = (a * 0 + a * 0) + (-(a * 0))  := by rw [Int.add_assoc]
+  ⋮
+
+* Usamos "_" para fazer referência ao lado direito da igualdade imediatamente acima.
+* Justificamos cada etapa com ":= by …".
+
+OBS: O "calc" precisa começar e terminar exatamente igual ao alvo, ou seja:
+
+Se o alvo é a * 0 = 0, então seus cálculos devem começar com "a * 0 = …" e terminar com "… = 0".
+
+--- Aplicar uma função nos dois lados da igualdade ---
+
+Para aplicar a mesma função em ambos os lados da igualdade usamos congrArg.
+
+Dados: …, h : a = b
+
+have h' : a + c = b + c := congrArg (fun z => z + c) h
+
