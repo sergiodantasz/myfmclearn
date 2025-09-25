@@ -336,18 +336,7 @@ Logo x · c = y · c.  [((·)-com) c x; ((·)-com) c y]
 Logo x = y.  [((·)-canR) c x y]
 Imediato.
 
-==================== Outros exercícios ====================
-
-Θ. (∀x : Int)[-(-x) = x]
-
-Seja a : Int.  -- a : Int ⊢ -(-a) = a
-Calculamos:
-  (-a) + (-(-a))
-    = 0  [((-)-invR-(+)) -a]
-    = (-a) + a  [((-)-invL-(+)) a ←]
--- Dados: …, (-a) + (-(-a)) = (-a) + a
-Logo -(-a) = a.  [((+)-canL) -a -(-a) a].
-∎
+---- x3.16 ----
 
 Θ. (∣)-refl ⇚⇛ (∀a : Int)[a ∣ a]
 
@@ -370,4 +359,17 @@ Calculamos:
     = a · (x · y)  [((·)-ass) a x y]
 Escolho o x · y como testemunha.  -- Alvo: a · x · y = c
 Imediato.
+∎
+
+==================== Outros exercícios ====================
+
+Θ. (∀x : Int)[-(-x) = x]
+
+Seja a : Int.  -- a : Int ⊢ -(-a) = a
+Calculamos:
+  (-a) + (-(-a))
+    = 0  [((-)-invR-(+)) -a]
+    = (-a) + a  [((-)-invL-(+)) a ←]
+-- Dados: …, (-a) + (-(-a)) = (-a) + a
+Logo -(-a) = a.  [((+)-canL) -a -(-a) a].
 ∎
