@@ -34,8 +34,8 @@ NZD : a · b = 0  ⇒ a = 0 ∨ b = 0
 
 ☑ (-)-invL-(+) : (-x) + x = 0
 
-⚠ (·)-canR : (∀c ≠ 0)(∀x,y)[x · c = y · c ⇒ x = y]
-⚠ (·)-canL : (∀c ≠ 0)(∀x,y)[c · x = c · y ⇒ x = y]
+☑ (·)-canR : (∀c ≠ 0)(∀x,y)[x · c = y · c ⇒ x = y]
+☑ (·)-canL : (∀c ≠ 0)(∀x,y)[c · x = c · y ⇒ x = y]
 
 ☑ 1-idL-(·) : 1 · x = x
 

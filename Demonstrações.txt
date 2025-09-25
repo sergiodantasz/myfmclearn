@@ -298,6 +298,44 @@ Calculamos:
         = 0  [(0-annR-(·)) a]
 ∎
 
+---- x3.15 ----
+
+Θ. (·)-canR ⇚⇛ (∀c ≠ 0)(∀x,y)[x · c = y · c ⇒ x = y]
+
+Seja c : Int tal que c ≠ 0.
+Sejam x, y : Int.
+Suponha hc : x · c = y · c.  -- Alvo: x = y
+Calculamos:
+  (x + (-y)) · c
+    = x · c + (-y) · c  [((+)-distR-(·)) c x (-y)]
+    = y · c + (-y) · c  [hc]
+    = y · c + ((-1) · y) · c  [(x3.10) y ←]
+    = y · c + (-1) · (y · c)  [((·)-ass) (-1) y c]
+    = y · c + (-(y · c))  [(x3.10) (y · c)]
+    = 0  [((-)-invR-(+)) (y · c)]
+Aplique NZD em ⟨x + (-y), c⟩ para obter hnzd : (x + (-y)) · c = 0 ⇒ x + (-y) = 0 ∨ c = 0.
+Aplique hnzd em (x + (-y)) · c = 0 para obter h0 : x + (-y) = 0 ∨ c = 0.
+Separe em casos a partir de h0:
+Caso L:  -- Dados: x + (-y) = 0
+  Logo (x + (-y)) + y = 0 + y.  [(_ + y)]
+  Logo x + ((-y) + y) = y.  [((+)-ass) x (-y) y; (0-idL-(+)) y]
+  Logo x + 0 = y.  [((-)-invL-(+)) y]
+  Logo x = y.  [(0-idR-(+)) x]
+  Imediato.
+Caso R:  -- Dados: c = 0
+  Aplique c ≠ 0 em c = 0 para obter ⊥.
+  Contradição.
+∎
+
+Θ. (·)-canL ⇚⇛ (∀c ≠ 0)(∀x,y)[c · x = c · y ⇒ x = y]
+
+Seja c : Int tal que c ≠ 0.
+Sejam x, y : Int.
+Suponha c · x = c · y.  -- Alvo: x = y
+Logo x · c = y · c.  [((·)-com) c x; ((·)-com) c y]
+Logo x = y.  [((·)-canR) c x y]
+Imediato.
+
 ==================== Outros exercícios ====================
 
 Θ. (∀x : Int)[-(-x) = x]
@@ -333,4 +371,3 @@ Calculamos:
 Escolho o x · y como testemunha.  -- Alvo: a · x · y = c
 Imediato.
 ∎
-
