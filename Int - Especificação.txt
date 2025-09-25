@@ -48,8 +48,11 @@ NZD : a · b = 0  ⇒ a = 0 ∨ b = 0
 
 ☑ (∣)-refl : a ∣ a
 ☑ (∣)-trans : a ∣ b ∧ b ∣ c ⇒ a ∣ c
+☑ (|)-bottom : 1 ∣ a
+☑ (|)-top : a ∣ 0
 
 ⚠ unicidade de (+)-id : ...
 ⚠ unicidade de (·)-id : ...
 
 ⚠ unicidade de inv-(+) : ...
+

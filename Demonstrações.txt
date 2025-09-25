@@ -361,6 +361,28 @@ Escolho o x · y como testemunha.  -- Alvo: a · x · y = c
 Imediato.
 ∎
 
+---- x3.17 ----
+
+Θ. (|)-bottom ⇚⇛ (∀ : Int)[1 ∣ a]
+
+Seja a : Int.  -- Alvo: (∃k)[1 · k = a]
+Escolho o a.  -- Alvo: 1 · a · a
+Calculamos:
+  a = 1 · a  [(1-idL-(·)) a ←]
+Imediato.
+∎
+
+---- x3.18 ----
+
+Θ. (|)-top ⇚⇛ (∀ : Int)[a ∣ 0]
+
+Seja a : Int.  -- Alvo: (∃k)[a · k = 0]
+Escolho o 0.  -- Alvo: a · 0 = 0
+Calculamos:
+  0 = a · 0  [(0-annR-(·)) a ←]
+Imediato.
+∎
+
 ==================== Outros exercícios ====================
 
 Θ. (∀x : Int)[-(-x) = x]
