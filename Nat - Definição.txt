@@ -1,0 +1,43 @@
+== Nat - Definição ==
+
+Formas:
+data Nat = O | S Nat
+
+Construtores:
+data Nat
+  O : Nat
+  S : Nat → Nat
+
+-- Operações:
+
+(+) : Nat → Nat
+n + O = n
+n + (S m) = S (n + m)
+
+double : Nat → Nat
+double O = O
+double (S n) = S (S (double n))
+
+(·) : Nat → Nat
+n · O = O
+n · (S m) = (n · m) + n
+
+(^) : Nat → Nat
+n ^ O = S O
+n ^ (S m) = (n ^ m) · n
+
+fib : Nat → Nat
+fib O = O
+fib (S O) = S O
+fib (S (S n)) = fib (S n) + fib n
+
+-- Ordem de precedência
+
+* Da mais forte para a mais fraca.
+
+(^), (·), (+)
+
+(^) associa à direita.
+⚠ (·) associa à esquerda.
+⚠ (+) associa à esquerda.
+

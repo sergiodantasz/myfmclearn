@@ -300,6 +300,89 @@
 	
 	\colorbox{green}{NO ARQUIVO COM DEMONSTRAÇÕES}
 	
+	\subsection*{x3.19}
+	
+	\colorbox{yellow}{TO DO}
+	
+	\subsection*{x4.1}
+	
+	\colorbox{yellow}{TO DO}
+	
+	\subsection*{x4.2}
+	
+	\colorbox{yellow}{TO DO}
+	
+	\subsection*{x4.3}
+	
+	\colorbox{yellow}{TO DO}
+	
+	\subsection*{x4.4}
+	
+	\colorbox{yellow}{TO DO}
+	
+	\subsection*{x4.5}
+	
+	\begin{align*}
+		&\mathsf{double : Nat \to Nat} \\
+		&\mathsf{double\ O = O} \\
+		&\mathsf{double\ (S\ n) = S(S(double\ n))}
+	\end{align*}
+	
+	\subsection*{x4.6}
+	
+	\begin{align*}
+		&\mathsf{(\times) : Nat \to Nat} \\
+		&\mathsf{n \times O = O} \\
+		&\mathsf{n \times (S\ m) = (n \times m) + n}
+	\end{align*}
+	
+	\subsection*{x4.7}
+	
+	\begin{align*}
+		2 \cdot (0 + 1) & \inteq SS0 \cdot (0 + S0)   && \\
+		              & = SS0 \cdot (S(0 + 0)) && \text{(por (+).2)} \\
+		              & = SS0 \cdot S0         && \text{(por (+).1)} \\
+		              & = SS0 \cdot 0 + SS0    && \text{(por (\times).2)} \\
+		              & = 0 + SS0              && \text{(por (\times).1)} \\
+		              & = S(0 + S0)            && \text{(por (+).2)} \\
+		              & = S(S(0 + 0))          && \text{(por (+).2)} \\
+		              & = SS0                  && \text{(por (+).1)} \\
+		         & \inteq 2
+	\end{align*}
+	
+	\subsection*{x4.8}
+	
+	\colorbox{yellow}{TO DO}
+	
+	\subsection*{x4.9}
+	
+	\begin{align*}
+		& \mathsf{(\text{\^{}}) : Nat \to Nat} \\
+		& \mathsf{n \ \text{\^{}}\ O = S\ O} \\
+		& \mathsf{n\ \text{\^{}}\ (S\ m) = (n\ \text{\^{}}\ m) \times n}
+	\end{align*}
+	
+	\subsection*{x4.10}
+	
+	\colorbox{yellow}{TO DO}
+	
+	\subsection*{x4.11}
+	
+	\begin{align*}
+		& \mathsf{fib : Nat \to Nat} \\
+		& \mathsf{fib\ O = O} \\
+		& \mathsf{fib\ (S\ O) = S\ O} \\
+		& \mathsf{fib\ (S\ (S\ n)) = fib\ (S\ n) + fib\ n}
+	\end{align*}
+	
+	\subsection*{x4.12}
+	
+	\colorbox{yellow}{TO DO}
+	
+	\subsection*{x4.13}
+	
+	\colorbox{yellow}{TO DO}
+	
 	\section*{\centering Questões}
 	
 	\subsection*{Q1.50}
@@ -323,6 +406,20 @@
 	\subsection*{Q2.28}
 	
 	Para que seja possível ganhar mais dados e, assim, se torne mais fácil atacar o alvo.
+	
+	\subsection*{Q4.5}
+	
+	Podemos representar assim:
+	
+	\[
+	\mathsf{
+	\frac{n : Nat}{S n : Na}\;\textsc{Succ}
+    }
+	\]
+	
+	\subsection*{Q4.32}
+	
+	Sim, podemos separar em casos de acordo com as formas possíveis dos Nats.
 	
 	\section*{\centering Problemas}
 	
