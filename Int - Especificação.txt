@@ -59,3 +59,8 @@ NZD : a · b = 0  ⇒ a = 0 ∨ b = 0
 
 ☑ 1 ∈ Pos
 ☑ sqrtPos : (∀x ≠ 0)[x² é positivo]
+
+☑ lin_comb_1 : (∀d,a)[d ∣ a ⇒ (∀x)[d ∣ ax]]
+☑ lin_comb_2 : (∀d,a,b)[d ∣ a ∧ d ∣ b ⇒ d ∣ a + b]
+☑ lin_comb_3 : (∀d,a,b)[d ∣ a ∧ d ∣ b ⇒ (∀x,y)[d ∣ ax + by]]
+

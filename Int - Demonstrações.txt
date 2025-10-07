@@ -385,6 +385,55 @@ Imediato.
 
 ---- x3.19 ----
 
+Estratégia A:
+
+Θ. lin_comb_1 ⇚⇛(∀d,a)[d ∣ a ⇒ (∀x)[d ∣ ax]]
+
+Sejam d, a : Int.
+Suponha d ∣ a.
+Logo seja k tal que hk : d · k = a.
+Seja x : Int.  -- Alvo: d ∣ ax ⇚⇛ (∃k)[dk = ax]
+Escolho o k · x.  -- Alvo: d · (k · x) = a · x
+Calculamos:
+  d · (k · x)
+    = (d · k) · x  [((·)-ass) d k x ←]
+    = a · x        [hk]
+Imediato.
+∎
+
+Θ. lin_comb_2 ⇚⇛ (∀d,a,b)[d ∣ a ∧ d ∣ b ⇒ d ∣ a + b]
+
+Sejam d, a, b : Int.
+Suponha d ∣ a ∧ d ∣ b.
+Logo d ∣ a e d ∣ b.  [Ext-L; Ext-R]  -- Alvo: (∃k)[d · k = a + b]
+Como d ∣ a, logo k' : Int tal que hk' : d · k' = a.
+Como d ∣ b, logo k'' : Int tal que hk'' : d · k'' = b.
+Escolho o k' + k''.  -- Alvo: d · (k' + k'') = a + b
+Calculamos:
+  d · (k' + k'')
+    = d · k' + d · k''  [((+)-distL-(·)) d k' k'']
+    = a + b             [hk'; hk'']
+Imediato.
+∎
+
+Θ. lin_comb_3 ⇚⇛ (∀d,a,b)[d ∣ a ∧ d ∣ b ⇒ (∀x,y)[d ∣ ax + by]]
+
+Sejam d, a, b : Int.
+Suponha d ∣ a ∧ d ∣ b.
+Logo d ∣ a e d ∣ b.  [Ext-L; Ext-R]
+Sejam x, y : Int.  -- Alvo: d ∣ ax + by
+Basta demonstrar d ∣ ax ∧ d ∣ by.  [lin_comb_2]
+Split.
+Parte L:  -- Alvo: d ∣ ax
+  Basta demonstrar d ∣ a.  [lin_comb_1]
+  Imediato.
+Parte R:  -- Alvo: d ∣ by
+  Basta demonstrar d ∣ b.  [lin_comb_1]
+  Imediato.
+∎
+
+Estratégia B:
+
 ...
 
 ==================== Outros exercícios ====================
