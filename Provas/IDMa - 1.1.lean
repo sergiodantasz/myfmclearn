@@ -71,6 +71,14 @@ theorem neg_neg (a : Int) : -(-a) = a := by
     _     = a + 0                 := by rw [Int.add_right_neg]
     _     = a                     := by rw [Int.add_zero]
 
+theorem add_right_cancel (c : Int) (x y : Int) : x + c = y + c → x = y := by
+  intro h
+  have h : (x + c) + (-c) = (y + c) + (-c) := congrArg (fun z => z + (-c)) h
+  rw [Int.add_assoc, Int.add_assoc] at h
+  rw [Int.add_right_neg] at h
+  rw [Int.add_zero, Int.add_zero] at h
+  exact h
+
 theorem mul_zero (a : Int) : a * 0 = 0 := by
   calc
     a * 0 = a * 0 + 0                     := by rw [Int.add_zero]
