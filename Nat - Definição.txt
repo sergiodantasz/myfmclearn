@@ -1,4 +1,4 @@
-== Nat - Definição ==
+======== Nat - Definição ========
 
 -- Formas:
 
@@ -10,13 +10,13 @@ data Nat
   O : Nat
   S : Nat → Nat
 
-data ListNat
-  Nil : ListNat
-  Cons : Nat → ListNat → ListNat
-
 data List α
   Nil : List α
   Cons : α → List α → List α
+
+data List Nat
+  Nil : List Nat
+  Cons : Nat → List Nat → List Nat
 
 data Bool
   True : Bool
@@ -66,9 +66,27 @@ fib O = O
 fib (S O) = S O
 fib (S (S n)) = fib (S n) + fib n
 
+head : List α ⇀ α
+head (x :: xs) = x
+
+tail : List α ⇀ List α
+tail (x :: xs) = xs
+
+null : List α → Bool
+null [] = True
+null xs = False
+
 length : List α → Nat
 length [] = 0
 length (x :: xs) = S (length xs)
+
+sum : List Nat → Nat
+sum [] = 0
+sum (n :: ns) = n + sum ns
+
+product : List Nat → Nat
+product [] = 1
+product (n :: ns) = n · product ns
 
 (⧺) : List α → List α → List α
 [] ⧺ xs = xs
@@ -77,6 +95,16 @@ length (x :: xs) = S (length xs)
 reverse : List α → List α
 reverse [] = []
 reverse (x :: xs) = reverse xs ⧺ [x]
+
+map : (α → β) → List α → List β
+map f [] = []
+map f (x :: xs) = f x :: map f xs
+
+filter : (α → Bool) → List α → List α
+filter p [] = []
+filter p (x :: xs)
+  | p x = x :: filter p xs
+  | otherwise = filter p xs
 
 -- Teoremas e Lemas
 
@@ -91,9 +119,13 @@ reverse (x :: xs) = reverse xs ⧺ [x]
 ☑ LExp1 : (∀x,a,b)[x ^ (a + b) = x ^ a · x ^ b]
 ☑ LExp2 : (∀x,a,b)[x ^ (a · b) = (x ^ a) ^ b]
 ☑ LExp3 : (∀n)[S0 ^ n = S0]
+☑ (⧺)-pres-length : (∀xs,ys : List α)[length (xs ⧺ ys) = length xs + length ys]
+☑ (∀xs : List α)[reverse (reverse xs) = xs]
+☑ reverse-pres-length : (∀xs : List α)[length (reverse xs) = length xs]
 
-☑ Λ0 : (∀a)(∀b)[Sa + b = a + Sb]
+☑ Λ0 : (∀n,m)[Sn + m = n + Sm]
 ☑ Λ1 : (∀xs,ys : List α)[reverse (xs ⧺ ys) = reverse xs ⧺ reverse ys]
 ☑ Λ2 : (∀xs : List α)[xs ⧺ [] = xs]
 ☑ Λ3 : (∀xs,ys,zs : List α)[(xs ⧺ ys) ⧺ zs = xs ⧺ (ys ⧺ zs)]
 ☑ Λ4 : (∀x : α)[reverse [x] = [x]]
+

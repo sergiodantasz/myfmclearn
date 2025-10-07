@@ -1,53 +1,5 @@
 ================= Teoremas =================
 
-Θ. (∀xs : List α)[reverse (reverse xs) = xs]
-
-Por indução.
-Base:  -- Alvo: reverse (reverse []) = []
-  Calculamos:
-    reverse (reverse [])
-      = reverse []  [reverse.1]
-      = []          [reverse.1]
-Passo indutivo:  -- Alvo: (∀xs' : List α)[reverse (reverse xs') = xs' ⇒ reverse (reverse (x' :: xs')) = (x' :: xs')]
-  Seja xs' : List α tal que reverse (reverse xs') = xs'.
-  -- Alvo: reverse (reverse (x' :: xs')) = (x' :: xs')
-  -- Dados: …, HI : reverse (reverse xs') = xs'
-  Calculamos:
-    reverse (reverse (x' :: xs'))
-      = reverse (reverse xs' ⧺ [x'])          [reverse.2 com (x :: xs) := (x' :: xs')]
-      = reverse [x'] ⧺ reverse (reverse xs')  [Λ1 com xs := reverse xs', ys := [x']]
-      = [x'] ⧺ reverse (reverse xs')          [Λ4 com x := x']
-      = [x'] ⧺ xs'                            [HI]
-      = x' :: (xs' ⧺ [])                      [(⧺).2 com (x :: xs) := (x' :: xs'), ys := []]
-      = x' :: xs'                             [Λ2 com xs := xs']
-∎
-
-Θ. (∀ns,ms : ListNat)[length (ns ⧺ ms) = length ns + length ms]
-
-Sejam ns, ms : ListNat.
-Por indução em ns.
-Caso []:
-  -- Alvo: length ([] ⧺ ms) = length [] + length ms
-  Calculamos:
-    length ([] ⧺ ms)
-      = length ms          [(⧺).1 com ns := ms]
-    length [] + length ms
-      = 0 + length ms      [length.1]
-      = length ms          [0-idL-(+) com n := length ms]
-Caso (n' :: ns'):
-  -- Alvo: length ((n' :: ns') ⧺ ms) = length (n' :: ns') + length ms
-  -- Dados: …, HI : length (ns' ⧺ ms) = length ns' + length ms
-  Calculamos:
-    length ((n' :: ns') ⧺ ms)
-      = length (n' :: (ns' ⧺ ms))       [(⧺).2 com n := n', ns := ns', ms := ms]
-      = S (length (ns' ⧺ ms))           [length.2 com n := n', ns := ns' ⧺ ms]
-      = S (length ns' + length ms)      [HI]
-      = S (length ms + length ns')      [(+)-com com n := length ns', m := length ms]
-      = length ms + S (length ns')      [(+).2 com n := length ms, m := length ns' ←]
-      = S (length ns') + length ms      [(+)-com n := length ms, m := S (length ns')]
-      = length (n' :: ns') + length ms  [length.2 com n := n', m := ns' ←]
-∎
-
 Θ. (+)-ass ⇚⇛ (∀a,b,c : Nat)[a + (b + c) = (a + b) + c]
 
 Sejam a, b, c : Nat.
@@ -302,26 +254,96 @@ Passo indutivo:  -- Alvo: (∀n')[S0 ^ n' = S0 => S0 ^ Sn' = S0]
   Imediato.
 ∎ 
 
+Θ. (∀xs : List α)[reverse (reverse xs) = xs]
+
+Por indução.
+Base:  -- Alvo: reverse (reverse []) = []
+  Calculamos:
+    reverse (reverse [])
+      = reverse []  [reverse.1]
+      = []          [reverse.1]
+Passo indutivo:  -- Alvo: (∀xs' : List α)[reverse (reverse xs') = xs' ⇒ reverse (reverse (x' :: xs')) = (x' :: xs')]
+  Seja xs' : List α tal que reverse (reverse xs') = xs'.
+  -- Alvo: reverse (reverse (x' :: xs')) = (x' :: xs')
+  -- Dados: …, HI : reverse (reverse xs') = xs'
+  Calculamos:
+    reverse (reverse (x' :: xs'))
+      = reverse (reverse xs' ⧺ [x'])          [reverse.2 com (x :: xs) := (x' :: xs')]
+      = reverse [x'] ⧺ reverse (reverse xs')  [Λ1 com xs := reverse xs', ys := [x']]
+      = [x'] ⧺ reverse (reverse xs')          [Λ4 com x := x']
+      = [x'] ⧺ xs'                            [HI]
+      = x' :: (xs' ⧺ [])                      [(⧺).2 com (x :: xs) := (x' :: xs'), ys := []]
+      = x' :: xs'                             [Λ2 com xs := xs']
+∎
+
+Θ. (⧺)-pres-length ⇚⇛ (∀xs,ys : List α)[length (xs ⧺ ys) = length xs + length ys]
+
+Sejam xs, ys : List α.
+Por indução em xs.
+Caso []:
+  -- Alvo: length ([] ⧺ ys) = length [] + length ys
+  Calculamos:
+    length ([] ⧺ ys)
+      = length ys          [(⧺).1 com xs := ys]
+    length [] + length ys
+      = 0 + length ys      [length.1]
+      = length ys          [0-idL-(+) com n := length ys]
+Caso (x' :: xs'):
+  -- Alvo: length ((x' :: xs') ⧺ ys) = length (x' :: xs') + length ys
+  -- Dados: …, HI : length (xs' ⧺ ys) = length xs' + length ys
+  Calculamos:
+    length ((x' :: xs') ⧺ ys)
+      = length (x' :: (xs' ⧺ ys))       [(⧺).2 com (x :: xs) := (x' :: xs'), ys := ys]
+      = S (length (xs' ⧺ ys))           [length.2 com (x :: xs) := (x' :: (xs' ⧺ ys))]
+      = S (length xs' + length ys)      [HI]
+      = S (length ys + length xs')      [(+)-com com n := length xs', m := length ys]
+      = length ys + S (length xs')      [(+).2 com n := length ys, m := length xs' ←]
+      = S (length xs') + length ys      [(+)-com n := length ys, m := S (length xs')]
+      = length (x' :: xs') + length ys  [length.2 com x := x', y := xs' ←]
+∎
+
+Θ. reverse-pres-length ⇚⇛ (∀xs : List α)[length (reverse xs) = length xs]
+
+Seja xs : List α.
+Por indução em xs.
+Caso []:  -- Alvo: length (reverse []) = length []
+  Calculamos:
+    length (reverse []) = length []  [reverse.1]
+Caso (x' :: xs'):
+  -- Alvo: length (reverse (x' :: xs')) = length (x' :: xs')
+  -- Dados: …, HI : length (reverse xs') = length xs'
+  Calculamos:
+    length (reverse (x' :: xs'))
+      = length (reverse xs' ⧺ [x'])         [reverse.2 com (x :: xs) := (x' :: xs')]
+      = length (reverse xs') + length [x']  [(⧺)-pres-length com xs := reverse xs', ys := [x']]
+      = length xs' + length [x']            [HI]
+      = length xs' + S(length [])           [length.2 com (x :: xs) := (x' :: [])]
+      = length xs' + S0                     [length.1]
+      = S(length xs') + 0                   [Λ0 com n := length xs', m := 0 ←]
+      = S(length xs')                       [(+).1 com n := S(length xs')]
+      = length (x' :: xs')                  [length.2 com (x :: xs) = (x' :: xs') ←]
+∎
+
 ================= Lemas =================
 
-Λ0. (∀a)(∀b)[Sa + b = a + Sb]
+Λ0. (∀n,m)[Sn + m = n + Sm]
 
-Basta demonstrar (∀b)(∀a)[Sa + b = a + Sb].  [(∀)-swap]
+Basta demonstrar (∀m)(∀n)[Sn + m = n + Sm].  [(∀)-swap]
 Por indução.
-Base:  -- Alvo: (∀a)[Sa + 0 = a + S0]
-  Seja a : Nat.
+Base:  -- Alvo: (∀n)[Sn + 0 = n + S0]
+  Seja n : Nat.
   Calculamos:
-    Sa + 0 = Sa  [(+).1]
-    a + S0 = S(a + 0)  [(+).2]
-           = Sa  [(+).1]
+    Sn + 0 = Sn  [(+).1]
+    n + S0 = S(n + 0)  [(+).2]
+           = Sn  [(+).1]
   Imediato.
-Passo indutivo:  -- Alvo: (∀k)[(∀a)[Sa + k = a + Sk] ⇒ (∀a)[Sa + Sk = a + SSk]]
-  Seja k : Nat tal que (∀a)[Sa + k = a + Sk].
-  Seja a : Nat.  -- Alvo: Sa + Sk = a + SSk
+Passo indutivo:  -- Alvo: (∀k)[(∀n)[Sn + k = n + Sk] ⇒ (∀n)[Sn + Sk = n + SSk]]
+  Seja k : Nat tal que (∀n)[Sn + k = n + Sk].
+  Seja n : Nat.  -- Alvo: Sn + Sk = n + SSk
   Calculamos:
-    Sa + Sk = S(Sa + k)  [(+).2]
-            = S(a + Sk)  [HI]
-            = a + SSk  [(+).2 ←]
+    Sn + Sk = S(Sn + k)  [(+).2]
+            = S(n + Sk)  [HI]
+            = n + SSk  [(+).2 ←]
   Imediato.
 ∎
 
@@ -392,3 +414,4 @@ Calculamos:
     = [] ⧺ [x]          [reverse.1]
     = [x]               [(⧺).1 com xs := [x]]
 ∎
+
