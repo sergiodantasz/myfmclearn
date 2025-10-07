@@ -1,22 +1,37 @@
 == Nat - Definição ==
 
-Formas:
+-- Formas:
+
 data Nat = O | S Nat
 
-Construtores:
+-- Construtores:
+
 data Nat
   O : Nat
   S : Nat → Nat
+
+data ListNat
+  Nil : ListNat
+  Cons : Nat → ListNat → ListNat
+
+data List α
+  Nil : List α
+  Cons : α → List α → List α
+
+data Bool
+  True : Bool
+  False : Bool
+
+-- Açúcares:
+
+[] ≡ Nil
+(::) ≡ Cons
 
 -- Operações:
 
 (+) : Nat → Nat
 n + O = n
 n + (S m) = S (n + m)
-
-double : Nat → Nat
-double O = O
-double (S n) = S (S (double n))
 
 (·) : Nat → Nat
 n · O = O
@@ -26,11 +41,6 @@ n · (S m) = (n · m) + n
 n ^ O = S O
 n ^ (S m) = (n ^ m) · n
 
-fib : Nat → Nat
-fib O = O
-fib (S O) = S O
-fib (S (S n)) = fib (S n) + fib n
-
 -- Ordem de precedência
 
 * Da mais forte para a mais fraca.
@@ -38,285 +48,52 @@ fib (S (S n)) = fib (S n) + fib n
 (^), (·), (+)
 
 (^) associa à direita.
-⚠ (·) associa à esquerda.
-⚠ (+) associa à esquerda.
+(·) associa à esquerda.
+(+) associa à esquerda.
 
--- Teoremas
+-- Relações de ordem
 
-Θ. (+)-ass ⇚⇛ (∀a,b,c : Nat)[a + (b + c) = (a + b) + c]
+n ≤ m ⇐≝⇒ (∃k : Nat)[n + k = m]
 
-Sejam a, b, c : Nat.
-Por indução no c.
-Caso 0:
-  -- Alvo: a + (b + 0) = (a + b) + 0
-  Calculamos:
-    a + (b + 0)
-      = a + b  [(+).1 com n := b]
-      = (a + b) + 0  [(+).1 com n := (a + b) ←]
-  Imediato.
-Caso S c':
-  -- Dados: …, a + (b + c') = (a + b) + c'
-  -- Alvo: a + (b + Sc') = (a + b) + Sc'
-  Calculamos:
-    a + (b + Sc')
-      = a + S(b + c')  [(+).2 com n := b, m := c']
-      = S(a + (b + c'))  [(+).2 com n := a, m := (b + c')]
-      = S((a + b) + c')  [H.I.]
-      = (a + b) + Sc'  [(+).2 com n := (a + b), m := c' ←]
-  Imediato.
-∎
+-- Funções
 
-Θ. (+)-com ⇚⇛ (∀a,b : Nat)[a + b = b + a]
+double : Nat → Nat
+double O = O
+double (S n) = S (S (double n))
 
-Por indução.
-Base:  -- Alvo: (∀b)[0 + b = b + 0]
-  Por indução.
-  Base:  -- Alvo: 0 + 0 = 0 + 0
-    Trivial.
-  Passo indutivo:  -- Alvo: (∀k)[0 + k = k + 0 ⇒ 0 + Sk = Sk + 0]
-    Seja k : Nat tal que 0 + k = k + 0.  -- Alvo: 0 + Sk = Sk + 0
-    Calculamos:
-      0 + Sk
-        = S(0 + k)  [(+).2]
-        = S(k + 0)  [HI]
-        = Sk        [(+).1]
-        = Sk + 0    [(+).1 ←]
-    Imediato.
-Passo indutivo:  -- Alvo: (∀k)[(∀b)[k + b = b + k] ⇒ (∀b)[Sk + b = b + Sk]]
-  Seja k : Nat tal que (∀b)[k + b = b + k].
-  Seja b : Nat.  -- Alvo: Sk + b = b + Sk
-  Logo hib : k + b = b + k.  [HI]
-  Calculamos:
-    Sk + b
-      = k + Sb    [Λ1]
-      = S(k + b)  [(+).2]
-      = S(b + k)  [hib]
-      = b + Sk    [(+).2 ←]
-  Imediato.
-∎
+fib : Nat → Nat
+fib O = O
+fib (S O) = S O
+fib (S (S n)) = fib (S n) + fib n
 
-Θ. (·)-ass ⇚⇛ (∀a)(∀b)(∀c)[(a · b) · c = a · (b · c)]
+length : List α → Nat
+length [] = 0
+length (x :: xs) = S (length xs)
 
-Basta demonstrar (∀c)(∀a)(∀b)[(a · b) · c = a · (b · c)].
-Por indução.
-Base:  -- Alvo: (∀a)(∀b)[(a · b) · 0 = a · (b · 0)]
-  Sejam a, b : Nat.
-  Calculamos:
-    (a · b) · 0
-      = 0            [(·).1]
-      = a · 0        [(·).1 ←]
-      = a · (b · 0)  [(·).1 ←]
-  Imediato.
-Passo indutivo:  -- Alvo: (∀k)[(∀a)(∀b)[(a · b) · k = a · (b · k)] ⇒ (∀a)(∀b)[(a · b) · Sk = a · (b · Sk)]]
-  Seja k : Nat tal que (∀a)(∀b)[(a · b) · k = a · (b · k)].  -- Alvo: (∀a)(∀b)[(a · b) · Sk = a · (b · Sk)]  
-  Sejam a, b : Nat.  -- Alvo: (a · b) · Sk = a · (b · Sk)  
-  Calculamos:
-    (a · b) · Sk
-      = (a · b) · k + a · b  [(·).2]
-      = a · (b · k) + a · b  [HI]
-      = a · (b · k + b)  [(·)-distL-(+) ←]
-    a · (b · Sk)
-      = a · (b · k + b)  [(·).2]
-  Imediato.
-∎
+(⧺) : List α → List α → List α
+[] ⧺ xs = xs
+(x :: xs) ⧺ ys = x :: (xs ⧺ ys)
 
-Θ. (·)-distL-(+) ⇚⇛ (∀d)(∀x)(∀y)[d · (x + y) = d · x + d · y]
+reverse : List α → List α
+reverse [] = []
+reverse (x :: xs) = reverse xs ⧺ [x]
 
-Basta demonstrar (∀y)(∀d)(∀x)[d · (x + y) = d · x + d · y].
-Por indução.
-Base:  -- Alvo: (∀d)(∀x)[d · (x + 0) = d · x + d · 0]
-  Sejam d, x : Nat.
-  Calculamos:
-    d · (x + 0)
-      = d · x          [(+).1]
-      = d · x + 0      [(+).1 ←]
-      = d · x + d · 0  [(·).1 ←]
-  Imediato.
-Passo indutivo:  -- Alvo: (∀k)[(∀d)(∀x)[d · (x + k) = d · x + d · k] ⇒ (∀d)(∀x)[d · (x + Sk) = d · x + d · Sk]]
-  Seja k : Nat tal que (∀d)(∀x)[d · (x + k) = d · x + d · k].  -- Alvo: (∀d)(∀x)[d · (x + Sk) = d · x + d · Sk]
-  Sejam d, x : Nat.  -- Alvo: d · (x + Sk) = d · x + d · Sk
-  Calculamos:
-    d · (x + Sk)
-      = d · S(x + k)           [(+).2]
-      = d · (x + k) + d        [(·).2]
-      = (d · x + d · k) + d    [HI]
-      = d · x + (d · k + d)    [(+)-ass]
-      = d · x + d · Sk         [(·).2 ←]
-  Imediato.
-∎
+-- Teoremas e Lemas
 
-Θ. (·).1-L ⇚⇛ (∀n)[0 · n = 0]
+☑ (+)-ass : (∀a,b,c)[a + (b + c) = (a + b) + c]
+☑ (+)-com : (∀a,b)[a + b = b + a]
+☑ (·)-ass : (∀a,b,c)[(a · b) · c = a · (b · c)]
+☑ (·)-distL-(+) : (∀d,x,y)[d · (x + y) = d · x + d · y]
+☑ 0-idL-(·) : (∀n)[0 · n = 0]
+☑ succ_mul : (∀n,m)[Sn · m = n · m + m]
+☑ (·)-com : (∀a,b)[a · b = b · a]
+☑ 1-id-(·) : (∀x)[x · S0 = x = S0 · x]
+☑ LExp1 : (∀x,a,b)[x ^ (a + b) = x ^ a · x ^ b]
+☑ LExp2 : (∀x,a,b)[x ^ (a · b) = (x ^ a) ^ b]
+☑ LExp3 : (∀n)[S0 ^ n = S0]
 
-Por indução.
-Base:  -- Alvo: 0 · 0 = 0
-  Calculamos:
-    0 · 0 = 0  [(·).1]
-  Imediato.
-Passo indutivo:  -- Alvo: (∀k)[0 · k = 0 ⇒ 0 · Sk = 0]
-  Seja k : Nat tal que 0 · k = 0.
-  Calculamos:
-    0 · Sk = 0 · k + 0  [(·).2]
-           = 0 · k      [(+).1]
-           = 0          [HI]
-  Imediato.
-∎
-
-Θ. (·).2-L ⇚⇛ (∀n,m)[Sn · m = n · m + m]
-
-Basta demonstrar (∀m)(∀n)[Sn · m = n · m + m].
-Por indução.
-Base:  -- Alvo: (∀n)[Sn · 0 = n · 0 + 0]
-  Seja n : Nat.
-  Calculamos:
-    Sn · 0
-      = 0          [(·).1]
-      = n · 0      [(·).1 ←]
-      = n · 0 + 0  [(+).1 ←]
-  Imediato.
-Passo indutivo:  -- Alvo: (∀k)[(∀n)[Sn · k = n · k + k] ⇒ (∀n)[Sn · Sk = n · Sk + Sk]]
-  Seja k : Nat tal que (∀n)[Sn · k = n · k + k].
-  Seja n : Nat.  -- Alvo: Sn · Sk = n · Sk + Sk
-  Calculamos:
-    Sn · Sk
-      = Sn · k + Sn         [(·).2]
-      = n · k + k + Sn      [HI]
-      = n · k + (k + Sn)    [(+)-ass]
-      = n · k + S(k + n)    [(+).2]
-      = S(n · k + (k + n))  [(+).2]
-      = S(n · k + (n + k))  [(+)-com]
-      = S(n · k + n + k)    [(+)-ass]
-      = S(n · Sk + k)       [(·).2 ←]
-      = n · Sk + Sk         [(+).2 ←]
-  Imediato.
-∎
-
-Θ. (·)-com ⇚⇛ (∀a,b)[a · b = b · a]
-
-Por indução.
-Base:  -- Alvo: (∀b)[0 · b = b · 0]
-  Seja b : Nat.
-  Calculamos:
-    b · 0
-      = 0      [(·).1]
-      = 0 · b  [(·).1-L ←]
-  Imediato.
-Passo indutivo:  -- Alvo: (∀k)[(∀b)[k · b = b · k] ⇒ (∀b)[Sk · b = b · Sk]]
-  Seja k : Nat tal que (∀b)[k · b = b · k].
-  Seja b : Nat.
-  Calculamos:
-    Sk · b
-      = k · b + b  [(·).2-L]
-      = b · k + b  [HI]
-      = b · Sk     [(·).2 ←]
-  Imediato.
-∎
-
-Θ. 1-id-(·) ⇚⇛ (∀x)[x · S0 = x = S0 · x]
-
-Seja x : Nat.
-Split.
-Parte L:  -- Alvo: x · S0 = x
-  Calculamos:
-    x · S0
-      = x · 0 + x  [(·).2 com n := x, m := 0]
-      = 0 + x      [(·).1 com n := x]
-      = x          [(+).1-L com n := x]
-  Imediato.
-Parte R:  -- Alvo: x = S0 · x
-  Calculamos:
-    S0 · x
-      = x · S0  [(·)-com com n := S0, m := x]
-      = x       [pela demonstração da parte L]
-  Imediato.
-∎
-
-Θ. Lei de expoenciação 1 ⇚⇛ (∀x,a,b)[x ^ (a + b) = x ^ a · x ^ b]
-
-Sejam x, a, b : Nat.
-Por indução no b.
-Caso 0:  -- Alvo: x ^ (a + 0) = x ^ a · x ^ 0
-  Calculamos:
-    x ^ (a + 0)
-      = x ^ a  [(+).1 com n := a]
-    x ^ a · x ^ 0
-      = x ^ a · S0         [(^).1 com n := x]
-      = x ^ a · 0 + x ^ a  [(·).2 com n := x ^ a, m := 0]
-      = 0 + x ^ a          [(·).1 com n := x ^ a]
-      = x ^ a              [(+).1-L com n := x ^ a]
-  Imediato.
-Caso S b':  -- …, x ^ (a + b') = x ^ a · x ^ b' ⊢ x ^ (a + Sb') = x ^ a · x ^ Sb'
-  Calculamos:
-    x ^ (a + Sb')
-      = x ^ S(a + b')         [(+).2 com n := a, m := b']
-      = x ^ (a + b') · x      [(^).2 com n := x, m := a + b']
-      = (x ^ a · x ^ b') · x  [HI]
-      = x ^ a · (x ^ b' · x)  [(·)-ass com n := x ^ a, m := x ^ b', k := x]
-      = x ^ a · x ^ Sb'       [(^).2 com n := x, m := b' ←]
-  Imediato.
-∎
-
-Θ. Lei de expoenciação 2 ⇚⇛ (∀x,a,b)[x ^ (a · b) = (x ^ a) ^ b]
-
-Sejam x, a, b : Nat.
-Por indução no b.
-Caso 0:
-  Calculamos:
-    x ^ (a · 0)
-      = x ^ 0  [(·).1 com n := a]
-      = S0     [(^).1 com n := x]
-    (x ^ a) ^ 0
-      = S0     [(^).1 com n := x ^ a]
-  Imediato.
-Caso S b':
-  Calculamos:
-    x ^ (a · Sb')
-      = x ^ (a · b' + a)      [(·).2 com n := a, m := b']
-      = x ^ (a · b') · x ^ a  [LExp.1 com x := x, a := a · b', b := a]
-      = (x ^ a) ^ b' · x ^ a  [HI]
-      = (x ^ a) ^ Sb'         [(^).2 com n := x ^ a, m := b']
-  Imediato.
-∎
-
-Θ. Lei de expoenciação 3 ⇚⇛ (∀n)[S0 ^ n = S0]
-
-Por indução.
-Base:  -- Alvo: S0 ^ 0 = S0
-  Calculamos:
-    S0 ^ 0
-      = S0  [(^).1 com n := S0]
-  Imediato.
-Passo indutivo:  -- Alvo: (∀n')[S0 ^ n' = S0 => S0 ^ Sn' = S0]
-  Seja n' : Nat tal que S0 ^ n' = S0.
-  Calculamos:
-    S0 ^ Sn'
-      = S0 ^ n' · S0  [(^).2 com n := S0, m := n']
-      = S0 · S0       [HI]
-      = S0 · 0 + S0   [(·).2 com n := S0, m := 0]
-      = 0 + S0        [(·).1 com n := S0]
-      = S0            [(+).1-L com n := S0]
-  Imediato.
-∎
-
--- Lemas
-
-Λ1. (∀a)(∀b)[Sa + b = a + Sb]
-
-Basta demonstrar (∀b)(∀a)[Sa + b = a + Sb].  [(∀)-swap]
-Por indução.
-Base:  -- Alvo: (∀a)[Sa + 0 = a + S0]
-  Seja a : Nat.
-  Calculamos:
-    Sa + 0 = Sa  [(+).1]
-    a + S0 = S(a + 0)  [(+).2]
-           = Sa  [(+).1]
-  Imediato.
-Passo indutivo:  -- Alvo: (∀k)[(∀a)[Sa + k = a + Sk] ⇒ (∀a)[Sa + Sk = a + SSk]]
-  Seja k : Nat tal que (∀a)[Sa + k = a + Sk].
-  Seja a : Nat.  -- Alvo: Sa + Sk = a + SSk
-  Calculamos:
-    Sa + Sk = S(Sa + k)  [(+).2]
-            = S(a + Sk)  [HI]
-            = a + SSk  [(+).2 ←]
-  Imediato.
-∎
-
+☑ Λ0 : (∀a)(∀b)[Sa + b = a + Sb]
+☑ Λ1 : (∀xs,ys : List α)[reverse (xs ⧺ ys) = reverse xs ⧺ reverse ys]
+☑ Λ2 : (∀xs : List α)[xs ⧺ [] = xs]
+☑ Λ3 : (∀xs,ys,zs : List α)[(xs ⧺ ys) ⧺ zs = xs ⧺ (ys ⧺ zs)]
+☑ Λ4 : (∀x : α)[reverse [x] = [x]]

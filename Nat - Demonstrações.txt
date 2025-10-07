@@ -1,0 +1,394 @@
+================= Teoremas =================
+
+Θ. (∀xs : List α)[reverse (reverse xs) = xs]
+
+Por indução.
+Base:  -- Alvo: reverse (reverse []) = []
+  Calculamos:
+    reverse (reverse [])
+      = reverse []  [reverse.1]
+      = []          [reverse.1]
+Passo indutivo:  -- Alvo: (∀xs' : List α)[reverse (reverse xs') = xs' ⇒ reverse (reverse (x' :: xs')) = (x' :: xs')]
+  Seja xs' : List α tal que reverse (reverse xs') = xs'.
+  -- Alvo: reverse (reverse (x' :: xs')) = (x' :: xs')
+  -- Dados: …, HI : reverse (reverse xs') = xs'
+  Calculamos:
+    reverse (reverse (x' :: xs'))
+      = reverse (reverse xs' ⧺ [x'])          [reverse.2 com (x :: xs) := (x' :: xs')]
+      = reverse [x'] ⧺ reverse (reverse xs')  [Λ1 com xs := reverse xs', ys := [x']]
+      = [x'] ⧺ reverse (reverse xs')          [Λ4 com x := x']
+      = [x'] ⧺ xs'                            [HI]
+      = x' :: (xs' ⧺ [])                      [(⧺).2 com (x :: xs) := (x' :: xs'), ys := []]
+      = x' :: xs'                             [Λ2 com xs := xs']
+∎
+
+Θ. (∀ns,ms : ListNat)[length (ns ⧺ ms) = length ns + length ms]
+
+Sejam ns, ms : ListNat.
+Por indução em ns.
+Caso []:
+  -- Alvo: length ([] ⧺ ms) = length [] + length ms
+  Calculamos:
+    length ([] ⧺ ms)
+      = length ms          [(⧺).1 com ns := ms]
+    length [] + length ms
+      = 0 + length ms      [length.1]
+      = length ms          [0-idL-(+) com n := length ms]
+Caso (n' :: ns'):
+  -- Alvo: length ((n' :: ns') ⧺ ms) = length (n' :: ns') + length ms
+  -- Dados: …, HI : length (ns' ⧺ ms) = length ns' + length ms
+  Calculamos:
+    length ((n' :: ns') ⧺ ms)
+      = length (n' :: (ns' ⧺ ms))       [(⧺).2 com n := n', ns := ns', ms := ms]
+      = S (length (ns' ⧺ ms))           [length.2 com n := n', ns := ns' ⧺ ms]
+      = S (length ns' + length ms)      [HI]
+      = S (length ms + length ns')      [(+)-com com n := length ns', m := length ms]
+      = length ms + S (length ns')      [(+).2 com n := length ms, m := length ns' ←]
+      = S (length ns') + length ms      [(+)-com n := length ms, m := S (length ns')]
+      = length (n' :: ns') + length ms  [length.2 com n := n', m := ns' ←]
+∎
+
+Θ. (+)-ass ⇚⇛ (∀a,b,c : Nat)[a + (b + c) = (a + b) + c]
+
+Sejam a, b, c : Nat.
+Por indução no c.
+Caso 0:
+  -- Alvo: a + (b + 0) = (a + b) + 0
+  Calculamos:
+    a + (b + 0)
+      = a + b  [(+).1 com n := b]
+      = (a + b) + 0  [(+).1 com n := (a + b) ←]
+  Imediato.
+Caso S c':
+  -- Dados: …, a + (b + c') = (a + b) + c'
+  -- Alvo: a + (b + Sc') = (a + b) + Sc'
+  Calculamos:
+    a + (b + Sc')
+      = a + S(b + c')  [(+).2 com n := b, m := c']
+      = S(a + (b + c'))  [(+).2 com n := a, m := (b + c')]
+      = S((a + b) + c')  [H.I.]
+      = (a + b) + Sc'  [(+).2 com n := (a + b), m := c' ←]
+  Imediato.
+∎
+
+Θ. (+)-com ⇚⇛ (∀a,b : Nat)[a + b = b + a]
+
+Por indução.
+Base:  -- Alvo: (∀b)[0 + b = b + 0]
+  Por indução.
+  Base:  -- Alvo: 0 + 0 = 0 + 0
+    Trivial.
+  Passo indutivo:  -- Alvo: (∀k)[0 + k = k + 0 ⇒ 0 + Sk = Sk + 0]
+    Seja k : Nat tal que 0 + k = k + 0.  -- Alvo: 0 + Sk = Sk + 0
+    Calculamos:
+      0 + Sk
+        = S(0 + k)  [(+).2]
+        = S(k + 0)  [HI]
+        = Sk        [(+).1]
+        = Sk + 0    [(+).1 ←]
+    Imediato.
+Passo indutivo:  -- Alvo: (∀k)[(∀b)[k + b = b + k] ⇒ (∀b)[Sk + b = b + Sk]]
+  Seja k : Nat tal que (∀b)[k + b = b + k].
+  Seja b : Nat.  -- Alvo: Sk + b = b + Sk
+  Logo hib : k + b = b + k.  [HI]
+  Calculamos:
+    Sk + b
+      = k + Sb    [Λ0]
+      = S(k + b)  [(+).2]
+      = S(b + k)  [hib]
+      = b + Sk    [(+).2 ←]
+  Imediato.
+∎
+
+Θ. (·)-ass ⇚⇛ (∀a)(∀b)(∀c)[(a · b) · c = a · (b · c)]
+
+Basta demonstrar (∀c)(∀a)(∀b)[(a · b) · c = a · (b · c)].
+Por indução.
+Base:  -- Alvo: (∀a)(∀b)[(a · b) · 0 = a · (b · 0)]
+  Sejam a, b : Nat.
+  Calculamos:
+    (a · b) · 0
+      = 0            [(·).1]
+      = a · 0        [(·).1 ←]
+      = a · (b · 0)  [(·).1 ←]
+  Imediato.
+Passo indutivo:  -- Alvo: (∀k)[(∀a)(∀b)[(a · b) · k = a · (b · k)] ⇒ (∀a)(∀b)[(a · b) · Sk = a · (b · Sk)]]
+  Seja k : Nat tal que (∀a)(∀b)[(a · b) · k = a · (b · k)].  -- Alvo: (∀a)(∀b)[(a · b) · Sk = a · (b · Sk)]  
+  Sejam a, b : Nat.  -- Alvo: (a · b) · Sk = a · (b · Sk)  
+  Calculamos:
+    (a · b) · Sk
+      = (a · b) · k + a · b  [(·).2]
+      = a · (b · k) + a · b  [HI]
+      = a · (b · k + b)  [(·)-distL-(+) ←]
+    a · (b · Sk)
+      = a · (b · k + b)  [(·).2]
+  Imediato.
+∎
+
+Θ. (·)-distL-(+) ⇚⇛ (∀d)(∀x)(∀y)[d · (x + y) = d · x + d · y]
+
+Basta demonstrar (∀y)(∀d)(∀x)[d · (x + y) = d · x + d · y].
+Por indução.
+Base:  -- Alvo: (∀d)(∀x)[d · (x + 0) = d · x + d · 0]
+  Sejam d, x : Nat.
+  Calculamos:
+    d · (x + 0)
+      = d · x          [(+).1]
+      = d · x + 0      [(+).1 ←]
+      = d · x + d · 0  [(·).1 ←]
+  Imediato.
+Passo indutivo:  -- Alvo: (∀k)[(∀d)(∀x)[d · (x + k) = d · x + d · k] ⇒ (∀d)(∀x)[d · (x + Sk) = d · x + d · Sk]]
+  Seja k : Nat tal que (∀d)(∀x)[d · (x + k) = d · x + d · k].  -- Alvo: (∀d)(∀x)[d · (x + Sk) = d · x + d · Sk]
+  Sejam d, x : Nat.  -- Alvo: d · (x + Sk) = d · x + d · Sk
+  Calculamos:
+    d · (x + Sk)
+      = d · S(x + k)           [(+).2]
+      = d · (x + k) + d        [(·).2]
+      = (d · x + d · k) + d    [HI]
+      = d · x + (d · k + d)    [(+)-ass]
+      = d · x + d · Sk         [(·).2 ←]
+  Imediato.
+∎
+
+Θ. 0-idL-(·) ⇚⇛ (∀n)[0 · n = 0]
+
+Por indução.
+Base:  -- Alvo: 0 · 0 = 0
+  Calculamos:
+    0 · 0 = 0  [(·).1]
+  Imediato.
+Passo indutivo:  -- Alvo: (∀k)[0 · k = 0 ⇒ 0 · Sk = 0]
+  Seja k : Nat tal que 0 · k = 0.
+  Calculamos:
+    0 · Sk = 0 · k + 0  [(·).2]
+           = 0 · k      [(+).1]
+           = 0          [HI]
+  Imediato.
+∎
+
+Θ. succ_mul ⇚⇛ (∀n,m)[Sn · m = n · m + m]
+
+Basta demonstrar (∀m)(∀n)[Sn · m = n · m + m].
+Por indução.
+Base:  -- Alvo: (∀n)[Sn · 0 = n · 0 + 0]
+  Seja n : Nat.
+  Calculamos:
+    Sn · 0
+      = 0          [(·).1]
+      = n · 0      [(·).1 ←]
+      = n · 0 + 0  [(+).1 ←]
+  Imediato.
+Passo indutivo:  -- Alvo: (∀k)[(∀n)[Sn · k = n · k + k] ⇒ (∀n)[Sn · Sk = n · Sk + Sk]]
+  Seja k : Nat tal que (∀n)[Sn · k = n · k + k].
+  Seja n : Nat.  -- Alvo: Sn · Sk = n · Sk + Sk
+  Calculamos:
+    Sn · Sk
+      = Sn · k + Sn         [(·).2]
+      = n · k + k + Sn      [HI]
+      = n · k + (k + Sn)    [(+)-ass]
+      = n · k + S(k + n)    [(+).2]
+      = S(n · k + (k + n))  [(+).2]
+      = S(n · k + (n + k))  [(+)-com]
+      = S(n · k + n + k)    [(+)-ass]
+      = S(n · Sk + k)       [(·).2 ←]
+      = n · Sk + Sk         [(+).2 ←]
+  Imediato.
+∎
+
+Θ. (·)-com ⇚⇛ (∀a,b)[a · b = b · a]
+
+Por indução.
+Base:  -- Alvo: (∀b)[0 · b = b · 0]
+  Seja b : Nat.
+  Calculamos:
+    b · 0
+      = 0      [(·).1]
+      = 0 · b  [0-idL-(·) ←]
+  Imediato.
+Passo indutivo:  -- Alvo: (∀k)[(∀b)[k · b = b · k] ⇒ (∀b)[Sk · b = b · Sk]]
+  Seja k : Nat tal que (∀b)[k · b = b · k].
+  Seja b : Nat.
+  Calculamos:
+    Sk · b
+      = k · b + b  [succ_mul]
+      = b · k + b  [HI]
+      = b · Sk     [(·).2 ←]
+  Imediato.
+∎
+
+Θ. 1-id-(·) ⇚⇛ (∀x)[x · S0 = x = S0 · x]
+
+Seja x : Nat.
+Split.
+Parte L:  -- Alvo: x · S0 = x
+  Calculamos:
+    x · S0
+      = x · 0 + x  [(·).2 com n := x, m := 0]
+      = 0 + x      [(·).1 com n := x]
+      = x          [0-idL-(+) com n := x]
+  Imediato.
+Parte R:  -- Alvo: x = S0 · x
+  Calculamos:
+    S0 · x
+      = x · S0  [(·)-com com n := S0, m := x]
+      = x       [pela demonstração da parte L]
+  Imediato.
+∎
+
+Θ. Lei de expoenciação 1 ⇚⇛ (∀x,a,b)[x ^ (a + b) = x ^ a · x ^ b]
+
+Sejam x, a, b : Nat.
+Por indução no b.
+Caso 0:  -- Alvo: x ^ (a + 0) = x ^ a · x ^ 0
+  Calculamos:
+    x ^ (a + 0)
+      = x ^ a  [(+).1 com n := a]
+    x ^ a · x ^ 0
+      = x ^ a · S0         [(^).1 com n := x]
+      = x ^ a · 0 + x ^ a  [(·).2 com n := x ^ a, m := 0]
+      = 0 + x ^ a          [(·).1 com n := x ^ a]
+      = x ^ a              [0-idL-(+) com n := x ^ a]
+  Imediato.
+Caso S b':  -- …, x ^ (a + b') = x ^ a · x ^ b' ⊢ x ^ (a + Sb') = x ^ a · x ^ Sb'
+  Calculamos:
+    x ^ (a + Sb')
+      = x ^ S(a + b')         [(+).2 com n := a, m := b']
+      = x ^ (a + b') · x      [(^).2 com n := x, m := a + b']
+      = (x ^ a · x ^ b') · x  [HI]
+      = x ^ a · (x ^ b' · x)  [(·)-ass com n := x ^ a, m := x ^ b', k := x]
+      = x ^ a · x ^ Sb'       [(^).2 com n := x, m := b' ←]
+  Imediato.
+∎
+
+Θ. Lei de expoenciação 2 ⇚⇛ (∀x,a,b)[x ^ (a · b) = (x ^ a) ^ b]
+
+Sejam x, a, b : Nat.
+Por indução no b.
+Caso 0:
+  Calculamos:
+    x ^ (a · 0)
+      = x ^ 0  [(·).1 com n := a]
+      = S0     [(^).1 com n := x]
+    (x ^ a) ^ 0
+      = S0     [(^).1 com n := x ^ a]
+  Imediato.
+Caso S b':
+  Calculamos:
+    x ^ (a · Sb')
+      = x ^ (a · b' + a)      [(·).2 com n := a, m := b']
+      = x ^ (a · b') · x ^ a  [LExp.1 com x := x, a := a · b', b := a]
+      = (x ^ a) ^ b' · x ^ a  [HI]
+      = (x ^ a) ^ Sb'         [(^).2 com n := x ^ a, m := b']
+  Imediato.
+∎
+
+Θ. Lei de expoenciação 3 ⇚⇛ (∀n)[S0 ^ n = S0]
+
+Por indução.
+Base:  -- Alvo: S0 ^ 0 = S0
+  Calculamos:
+    S0 ^ 0
+      = S0  [(^).1 com n := S0]
+  Imediato.
+Passo indutivo:  -- Alvo: (∀n')[S0 ^ n' = S0 => S0 ^ Sn' = S0]
+  Seja n' : Nat tal que S0 ^ n' = S0.
+  Calculamos:
+    S0 ^ Sn'
+      = S0 ^ n' · S0  [(^).2 com n := S0, m := n']
+      = S0 · S0       [HI]
+      = S0 · 0 + S0   [(·).2 com n := S0, m := 0]
+      = 0 + S0        [(·).1 com n := S0]
+      = S0            [0-idL-(+) com n := S0]
+  Imediato.
+∎ 
+
+================= Lemas =================
+
+Λ0. (∀a)(∀b)[Sa + b = a + Sb]
+
+Basta demonstrar (∀b)(∀a)[Sa + b = a + Sb].  [(∀)-swap]
+Por indução.
+Base:  -- Alvo: (∀a)[Sa + 0 = a + S0]
+  Seja a : Nat.
+  Calculamos:
+    Sa + 0 = Sa  [(+).1]
+    a + S0 = S(a + 0)  [(+).2]
+           = Sa  [(+).1]
+  Imediato.
+Passo indutivo:  -- Alvo: (∀k)[(∀a)[Sa + k = a + Sk] ⇒ (∀a)[Sa + Sk = a + SSk]]
+  Seja k : Nat tal que (∀a)[Sa + k = a + Sk].
+  Seja a : Nat.  -- Alvo: Sa + Sk = a + SSk
+  Calculamos:
+    Sa + Sk = S(Sa + k)  [(+).2]
+            = S(a + Sk)  [HI]
+            = a + SSk  [(+).2 ←]
+  Imediato.
+∎
+
+Λ1. (∀xs,ys : List α)[reverse (xs ⧺ ys) = reverse xs ⧺ reverse ys]
+
+Sejam xs, ys : List α.
+Por indução em xs.
+Caso []:  -- Alvo: reverse ([] ⧺ ys) = reverse ys ⧺ reverse []
+  Calculamos:
+    reverse ([] ⧺ ys)
+      = reverse ys  [(⧺).1 com xs := ys]
+    reverse ys ⧺ reverse []
+      = reverse ys ⧺ []  [reverse.1]
+      = reverse ys       [Λ2 com xs := reverse ys]
+Caso (x' :: xs'):
+  -- Alvo: reverse ((x' :: xs') ⧺ ys) = reverse ys ⧺ reverse (x' :: xs')
+  -- Dados: …, reverse (xs' ⧺ ys) = reverse ys ⧺ reverse xs'
+  Calculamos:
+    reverse ((x' :: xs') ⧺ ys)
+      = reverse (x' :: (xs' ⧺ ys))         [(⧺).2 com (x :: xs) := (x' :: xs'), ys := ys]
+      = reverse (xs' ⧺ ys) ⧺ [x']          [reverse.2 com (x :: xs) := (x' :: (xs' ⧺ ys))]
+      = (reverse ys ⧺ reverse xs') ⧺ [x']  [HI]
+      = reverse ys ⧺ (reverse xs' ⧺ [x'])  [Λ3 com xs := reverse ys, ys := reverse xs', zs := [x']]
+      = reverse ys ⧺ reverse (x' :: xs')   [reverse.2 com (x :: xs) := (x' :: xs') ←]
+∎
+
+Λ2. (∀xs : List α)[xs ⧺ [] = xs]
+
+Por indução.
+Base:  -- Alvo: [] ⧺ [] = []
+  Calculamos:
+    [] ⧺ [] = []  [(⧺).1]
+Passo indutivo:  -- Alvo: (∀xs' : List α)[xs' ⧺ [] = xs' ⇒ (x' :: xs') ⧺ [] = (x' :: xs')]
+  Seja xs' : List α tal que xs' ⧺ [] = xs'.  -- Alvo: (x' :: xs') ⧺ [] = (x' :: xs')
+  Calculamos:
+    (x' :: xs') ⧺ []
+      = x' :: (xs' ⧺ [])  [(⧺).2 com (x :: xs) := (x' :: xs'), ys := []]
+      = x' :: xs'         [HI]
+∎
+
+Λ3. (∀xs,ys,zs : List α)[(xs ⧺ ys) ⧺ zs = xs ⧺ (ys ⧺ zs)]
+
+Sejam xs, ys, zs : List α.
+Por indução em xs.
+Caso []:  -- Alvo: ([] ⧺ ys) ⧺ zs = [] ⧺ (ys ⧺ zs)
+  Calculamos:
+    ([] ⧺ ys) ⧺ zs
+      = ys ⧺ zs  [(⧺).1 com xs := ys]
+    [] ⧺ (ys ⧺ zs)
+      = ys ⧺ zs  [(⧺).1 com xs := ys ⧺ zs]
+Caso (x' :: xs'):
+  -- Alvo: ((x' :: xs') ⧺ ys) ⧺ zs = (x' :: xs') ⧺ (ys ⧺ zs)
+  -- Dados: (xs' ⧺ ys) ⧺ zs = xs' ⧺ (ys ⧺ zs)
+  Calculamos:
+    ((x' :: xs') ⧺ ys) ⧺ zs
+      = (x' :: ((xs' ⧺ ys)) ⧺ zs)  [(⧺).2 com (x :: xs) := (x' :: xs'), ys := ys]
+      = x' :: ((xs' ⧺ ys) ⧺ zs)    [(⧺).2 com (x :: xs) := (x' :: (xs' ⧺ ys)), ys := zs]
+      = x' :: (xs' ⧺ (ys ⧺ zs))    [HI]
+      = (x' :: xs') ⧺ (ys ⧺ zs)    [(⧺).2 com (x :: xs) := (x' :: xs'), ys := ys ⧺ zs ←]
+∎
+
+Λ4. (∀x : α)[reverse [x] = [x]]
+
+Seja x : α.
+Calculamos:
+  reverse [x]
+    = reverse [] ⧺ [x]  [reverse.2 com x := x, xs := []]
+    = [] ⧺ [x]          [reverse.1]
+    = [x]               [(⧺).1 com xs := [x]]
+∎
