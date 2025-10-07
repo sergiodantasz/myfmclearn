@@ -20,6 +20,8 @@
 
 NZD : a · b = 0  ⇒ a = 0 ∨ b = 0
 
+NZero : 0 ≠ 1
+
 -- Teoremas (Consequências dos Axiomas) --
 
 * ⚠ → Ainda não foi demonstrado.
