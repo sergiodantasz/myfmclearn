@@ -39,7 +39,8 @@ NZD : a · b = 0  ⇒ a = 0 ∨ b = 0
 
 ☑ 1-idL-(·) : 1 · x = x
 
-☑ ? : (-1) · x = -x
+☑ 1-negL-(·) : (-1) · x = -x
+☑ neg,neg-(·) : (∀x,y : Int)[(-x) · (-y) = x · y]
 
 ☑ (+)-distL-(·) : d · (x + y) = d · x + d · y
 
@@ -56,3 +57,5 @@ NZD : a · b = 0  ⇒ a = 0 ∨ b = 0
 
 ⚠ unicidade de inv-(+) : ...
 
+☑ 1 ∈ Pos
+☑ sqrtPos : (∀x ≠ 0)[x² é positivo]

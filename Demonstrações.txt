@@ -399,3 +399,51 @@ Calculamos:
 -- Dados: …, (-a) + (-(-a)) = (-a) + a
 Logo -(-a) = a.  [((+)-canL) -a -(-a) a].
 ∎
+
+Θ. 1 ∈ Pos
+
+Calculamos:
+  1² ≡ 1 · 1
+     = 1  [1-idR-(·)]
+Aplique sqrtPos em nzero para obter 1² > 0.
+Logo 1 > 0.  [1² = 1]
+Logo 0 < 1.
+Logo 1 - 0 ∈ Pos.
+Logo 1 ∈ Pos.
+Imediato.
+∎
+
+Θ. sqrtPos ⇚⇛ (∀x ≠ 0)[x² é positivo]
+
+Seja x : Int tal que x ≠ 0.  -- Alvo: x² ∈ Pos
+Separe em casos a partir de tri x.
+Caso x ∈ Pos:
+  Logo x · x ∈ Pos.  [(Pos-(·)-Cl) x x]
+  Imediato.
+Caso x = 0:
+  Aplique nzero em x = 0 para obter ⊥.
+  Contradição.
+Caso -x ∈ Pos:
+  Logo (-x) · (-x) ∈ Pos ⁽¹⁾.  [(Pos-(·)-Cl) (-x) (-x)]
+  Calculamos:
+    (-x) · (-x) = x · y  [(neg,neg-(·)) x y]
+  Logo x · x ∈ Pos.  [((=)-subst[1]) ((-x) · (-x) = x · x) (1)]
+  Imediato.
+∎
+
+Θ. neg,neg-(·) ⇚⇛ (∀x,y : Int)[(-x) · (-y) = x · y]
+
+Sejam x, y : Int.
+Calculamos:
+  (-x) · (-y)
+    = ((-1) · x) · ((-1) · y)  [(1-negL-(·)) x ←; (1-negL-(·)) y ←]
+    = (((-1) · x) · (-1)) · y  [((·)-ass) ((-1) · x) (-1) y]
+    = ((-1) · (x · (-1))) · y  [((·)-ass) (-1) x (-1)]
+    = ((-1) · ((-1) · x)) · y  [((·)-com) x (-1)]
+    = (((-1) · (-1)) · x) · y  [((·)-ass) (-1) (-1) x ←]
+    = ((-(-1)) · x) · y        [(1-negL-(·)) (-1)]
+    = (1 · x) · y              [((-)-invol) 1]
+    = x · y                    [(1-idL-(·)) x]
+Imediato.
+∎
+
