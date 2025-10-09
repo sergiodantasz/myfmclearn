@@ -1,6 +1,6 @@
 == Int - Especificação ==
 
--- Leis (Axiomas): --
+-- Leis (Axiomas) --
 
 * (∀… : Int) é implícito.
 
@@ -21,6 +21,10 @@
 NZD : a · b = 0  ⇒ a = 0 ∨ b = 0
 
 NZero : 0 ≠ 1
+
+Pos-(+)-Cl : (∀a,b ∈ Pos)[a + b ∈ Pos]
+Pos-(·)-Cl : (∀a,b ∈ Pos)[a · b ∈ Pos]
+tricotomia : (∀a)[e.u.d.: Pos a; a = 0; Pos (-a)]
 
 -- Teoremas (Consequências dos Axiomas) --
 
@@ -65,4 +69,59 @@ NZero : 0 ≠ 1
 ☑ lin_comb_1 : (∀d,a)[d ∣ a ⇒ (∀x)[d ∣ ax]]
 ☑ lin_comb_2 : (∀d,a,b)[d ∣ a ∧ d ∣ b ⇒ d ∣ a + b]
 ☑ lin_comb_3 : (∀d,a,b)[d ∣ a ∧ d ∣ b ⇒ (∀x,y)[d ∣ ax + by]]
+
+☑ unicidade de min : u, v min A ⇒ u = v
+
+☑ |x| ≥ 0
+
+-- Definições --
+
+a ∣ b ⇚⇛ (∃k)[a · k = b]
+a, b (∣)-sócios ⇚⇛ a ∣ b ∧ b ∣ a
+
+A ≡ {a : α | φ(a)}
+a ∈ A ⇚⇛ φ(a)
+
+_ é um mínimo de _ : Int ⨯ Set Int → Prop
+
+Sejam m : Int, A : Set Int.
+m é um mínimo de A ⇚⇛ m ∈ A ∧ m ≤ A
+m ≤ A ⇚⇛ (∀a ∈ A)[m ≤ a]
+
+|_| : Int → Int
+|x| | x ≥ 0 = x
+    | x < 0 = -x
+
+-- MDC: Melhor Divisor Comum --
+
+Sejam m, a, b : Int.
+m é um melhor divisor comum dos a, b ⇚⇛ (m ∣ a ∧ m ∣ b) ∧ (∀c)[c é um divisor comum dos a, b ⇒ c ∣ m]
+
+Escrevemos:   d = (a,b) : Prop
+Para:         d é um mdc dos a, b
+
+Θ. (a,0) = a
+Θ. (a,b) = (b,a)
+Θ. (a,1) = 1
+
+-- Ordem --
+
+Pos _ : Int → Prop
+      ou
+Pos : Set Int
+
+(<), (>), (≤), (≥) : Int ⨯ Int → Prop
+
+x < y ⇚⇛ y - x ∈ Pos
+x > y ⇚⇛ y < x
+x ≤ y ⇚⇛ x < y ∨ x = y
+x ≥ y ⇚⇛ y ≤ x
+
+Neg _, Zero _ : Int → Prop
+         ou
+Neg, Zero : Set Int
+
+Neg x ⇚⇛ x < 0
+Zero x ⇚⇛ x = 0
+Pos x ⇚⇛ x > 0
 

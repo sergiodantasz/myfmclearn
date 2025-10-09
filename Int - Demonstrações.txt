@@ -201,7 +201,7 @@ Parte R:  -- (Unicidade) - Alvo: (∀u,v)[u + a = b ∧ v + a = b ⇒ u = v]
 
 ---- x3.10 ----
 
-Θ. (∀x : Int)[(-1) · x = -x]
+Θ. 1-negL-(·) ⇚⇛ (∀x : Int)[(-1) · x = -x]
 
 Seja a : Int.  -- Alvo: (-1) · a = -a
 Calculamos:
@@ -224,7 +224,7 @@ Sejam x, y : Int.  -- Alvo: (-x) · y = -(x · y) = x · (-y)
 Split.
 Parte L:  -- Alvo: (-x) · y = -(x · y)
   Calculamos:
-    -(x · y) = (-1) · (x · y)  [(x3.10) (x · y) ←]
+    -(x · y) = (-1) · (x · y)  [(1-negL-(·)) (x · y) ←]
              = ((-1) · x) · y  [((·)-ass) (-1) x y ←]
              = (-x) · y  [(x3.10) x]
   Imediato.
@@ -436,6 +436,70 @@ Estratégia B:
 
 ...
 
+---- x3.36 ----
+
+Θ. (∀a,b)[a ≤ b ∧ b ≤ a ⇒ a = b]
+
+Sejam a, b : Int.
+Suponha a ≤ b ∧ b ≤ a.
+Logo a ≤ b e b ≤ a.  [Ext-L; Ext-R]
+Separe em casos a partir de a ≤ b.
+Caso L:  -- Dados: …, a < b
+  Separe em casos a partir de b ≤ a.
+  Caso L:  -- Dados: …, b < a
+    Contradição.
+  Caso R:  -- Dados: …, b = a
+    Imediato.
+Caso R:  -- Dados: …, a = b
+  Imediato.
+∎
+
+---- x3.42 ----
+
+Θ. (∀A : Set Int)(∀u,v : Int)[u, v min A ⇒ u = v]
+
+Seja A : Set Int.
+Sejam u, v : Int.
+Suponha u = min A ∧ v = min A.  -- Alvo: u = v
+Logo u = min A e v = min A.  [Ext-L; Ext-R]
+Como u = min A, logo u ∈ A e hu : (∀c)[c ∈ A ⇒ u ≤ c].  [Ext-L; Ext-R]
+Como v = min A, logo v ∈ A e hv : (∀c)[c ∈ A ⇒ v ≤ c].  [Ext-L; Ext-R]
+Aplique hu em v para obter v ∈ A ⇒ u ≤ v.
+Logo u ≤ v.
+Aplique hv em u para obter u ∈ A ⇒ v ≤ u.
+Logo v ≤ u.
+Como u ≤ v e v ≤ u, logo u = v.  [((≤)-antisym) (u ≤ v) (v ≤ u)]
+Imediato.
+∎
+
+---- x3.46 ----
+
+Θ. (∀x)[|x| ≥ 0]
+
+Seja x : Int.  -- Alvo: 0 < |x| ∨ 0 = |x|
+Separe em casos a partir de ZO-Tri x.
+Caso x > 0:
+  Logo |x| = x.
+  Como x > 0, logo |x| > 0.
+  Esc-L.
+  Imediato.
+Caso x = 0:
+  Logo |x| = x.
+  Como x = 0, logo |x| = 0.
+  Esc-R.
+  Imediato.
+Caso x < 0:
+  Logo |x| = -x.
+  -- x < 0 ⇚⇛ 0 - x ∈ Pos
+  Calculamos:
+    0 - x = -x  [(0-idL-(+)) (-x)]
+  Logo -x ∈ Pos.
+  -- -x ∈ Pos ⇚⇛ -x > 0
+  Como -x > 0, logo |x| > 0.
+  Esc-L.
+  Imediato.
+∎
+
 ==================== Outros exercícios ====================
 
 Θ. (∀x : Int)[-(-x) = x]
@@ -456,9 +520,6 @@ Calculamos:
      = 1  [1-idR-(·)]
 Aplique sqrtPos em nzero para obter 1² > 0.
 Logo 1 > 0.  [1² = 1]
-Logo 0 < 1.
-Logo 1 - 0 ∈ Pos.
-Logo 1 ∈ Pos.
 Imediato.
 ∎
 

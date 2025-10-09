@@ -22,6 +22,11 @@ data Bool
   True : Bool
   False : Bool
 
+data Unit
+  ⛤ : Unit
+
+data Empty
+
 -- Açúcares:
 
 [] ≡ Nil
@@ -106,6 +111,20 @@ filter p (x :: xs)
   | p x = x :: filter p xs
   | otherwise = filter p xs
 
+take : Nat → List α → List α
+take 0 xs = []
+take n [] = []
+take (S n) (x :: xs) = x :: take n xs
+
+drop : Nat → List α → List α
+drop 0 xs = xs
+drop n [] = []
+drop (S n) (x :: xs) = drop n xs
+
+(!!) :: List α ⇀ Nat ⇀ α
+(x :: xs) !! 0 = x
+(x :: xs) !! (S n) = xs !! n
+
 -- Teoremas e Lemas
 
 ☑ (+)-ass : (∀a,b,c)[a + (b + c) = (a + b) + c]
@@ -122,6 +141,8 @@ filter p (x :: xs)
 ☑ (⧺)-pres-length : (∀xs,ys : List α)[length (xs ⧺ ys) = length xs + length ys]
 ☑ (∀xs : List α)[reverse (reverse xs) = xs]
 ☑ reverse-pres-length : (∀xs : List α)[length (reverse xs) = length xs]
+☑ (∀p : α → Bool)(∀xs,ys : List α)[filter p (xs ⧺ ys) = filter p xs ⧺ filter p ys]
+☑ (f : α → β)(∀xs,ys : List α)[map f (xs ⧺ ys) = map f xs ⧺ map f ys]
 
 ☑ Λ0 : (∀n,m)[Sn + m = n + Sm]
 ☑ Λ1 : (∀xs,ys : List α)[reverse (xs ⧺ ys) = reverse xs ⧺ reverse ys]

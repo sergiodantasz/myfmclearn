@@ -324,6 +324,64 @@ Caso (x' :: xs'):
       = length (x' :: xs')                  [length.2 com (x :: xs) = (x' :: xs') ←]
 ∎
 
+Θ. (∀p : α → Bool)(∀xs,ys : List α)[filter p (xs ⧺ ys) = filter p xs ⧺ filter p ys]
+
+Seja p : α → Bool.
+Sejam xs, ys : List α.
+Por indução em xs.
+Caso []:  -- Alvo: filter p ([] ⧺ ys) = filter p [] ⧺ filter p ys
+  Calculamos:
+    filter p ([] ⧺ ys)
+      = filter p ys  [(⧺).1 com xs := ys]
+    filter p [] ⧺ filter p ys
+      = [] ⧺ filter p ys  [filter.1 com p := p]
+      = filter p ys  [(⧺).1 com xs := filter p ys]
+Caso (x' :: xs'):
+  -- Alvo: filter p ((x' :: xs') ⧺ ys) = filter p (x' :: xs') ⧺ filter p ys
+  -- Dados: …, HI : filter p (xs' ⧺ ys) = filter p xs' ⧺ filter p ys
+  Separe em casos a partir de p x'.
+  Caso True:
+    Calculamos:
+      filter p ((x' :: xs') ⧺ ys)
+        = filter p (x' :: (xs' ⧺ ys))         [(⧺).2 com (x :: xs) := (x' :: xs'), ys := ys]
+        = x' :: filter p (xs' ⧺ ys)           [filter.2 com p := p, (x :: xs) := x' :: (xs' ⧺ ys)]
+        = x' :: (filter p xs' ⧺ filter p ys)  [HI]
+        = (x' :: filter p xs') ⧺ filter p ys  [(⧺).2 com (x :: xs) := (x' :: filter p xs'), ys := filter p ys ←]
+        = filter p (x' :: xs') ⧺ filter p ys  [filter.2 com p := p, (x :: xs) := (x' :: xs') ←]
+  Caso False:
+    Calculamos:
+      filter p ((x' :: xs') ⧺ ys)
+        = filter p (x' :: (xs' ⧺ ys))         [(⧺).2 com (x :: xs) := (x' :: xs'), ys := ys]
+        = filter p (xs' ⧺ ys)                 [filter.2 com p := p (x :: xs) := (x' :: (xs' ⧺ ys))]
+        = filter p xs' ⧺ filter p ys          [HI]
+        = filter p (x' :: xs') ⧺ filter p ys  [filter.2 com p := p, (x :: xs) := (x' :: xs') ←]
+∎
+
+Θ. (f : α → β)(∀xs,ys : List α)[map f (xs ⧺ ys) = map f xs ⧺ map f ys]
+
+Seja f : α → β.
+Sejam xs, ys : List α.
+Por indução no xs.
+Caso []:
+  -- Alvo: map f ([] ⧺ ys) = map f [] ⧺ map f ys
+  Calculamos:
+    map f ([] ⧺ ys)
+      = map f ys       [(⧺).1 com xs := ys]
+    map f [] ⧺ map f ys
+      = [] ⧺ map f ys  [map.1 com f := f]
+      = map f ys       [(⧺).1 com xs := map f ys]
+Caso (x' :: xs'):
+  -- Alvo: map f ((x' :: xs') ⧺ ys) = map f (x' :: xs') ⧺ map f ys
+  -- Dados: …, map f (xs' ⧺ ys) = map f xs' ⧺ map f ys
+  Calculamos:
+    map f ((x' :: xs') ⧺ ys)
+      = map f (x' :: (xs' ⧺ ys))        [(⧺).2 com (x :: xs) := (x' :: xs'), ys := ys]
+      = f x' :: map f (xs' ⧺ ys)        [map.2 com f := f, (x :: xs) := (x' :: (xs' ⧺ ys))]
+      = f x' :: (map f xs' ⧺ map f ys)  [HI]
+      = (f x' :: map f xs') ⧺ map f ys  [(⧺).2 com (x :: xs) := (f x' :: map f xs'), y := map f ys ←]
+      = map f (x' :: xs') ⧺ map f ys    [map.2 com f := f, (x :: xs) := (x' :: xs') ←]
+∎
+
 ================= Lemas =================
 
 Λ0. (∀n,m)[Sn + m = n + Sm]
