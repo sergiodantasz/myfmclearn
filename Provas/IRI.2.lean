@@ -44,3 +44,17 @@ product (x :: xs) = x · product xs
 -/
 
 end A
+
+section G
+
+/-
+d · (n + m) = d · n + d · m
+map f (xs ⧺ ys) = map f xs ⧺ map f ys
+product (xs ⧺ ys) = product xs · product ys
+reverse (xs ⧺ ys) = reverse ys ⧺ reverse xs
+length (xs ⧺ ys) = length xs + length ys
+length (map f xs) = length xs
+sum (map (+ k) ns) = (sum . map) (+ k) ns
+-/
+
+end G
